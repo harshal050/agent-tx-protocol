@@ -1,0 +1,17 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/agent-tx-core",
+    "crates/agent-tx-evals",
+    "crates/agent-tx-mcp",
+    "crates/agent-tx-cli",
+]
+
+[workspace.dependencies]
+tokio = { version = "1.38", features = ["full"] }
+reqwest = { version = "0.12", features = ["json"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+tracing = "0.1"
+tracing-subscriber = "0.3"
+axum = "0.7"
