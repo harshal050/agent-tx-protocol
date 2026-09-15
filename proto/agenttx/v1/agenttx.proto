@@ -1,0 +1,143 @@
+syntax = "proto3";
+
+package agenttx.v1;
+
+// AgentTxService wraps LLM agent tool executions in ACID transactions.
+//
+// Lifecycle:
+//   BeginTransaction -> ExecuteStep (1..N, strictly sequential) -> CommitTransaction
+//
+// When a step fails, the proxy decides a rollback strategy, rewinds state and
+// replies with ROLLBACK_TRIGGERED plus `next_step_id`: the agent must resume
+// execution from that step, applying the returned `clean_hint`/`constraints`.
+service AgentTxService {
+  rpc BeginTransaction(BeginTransactionRequest) returns (BeginTransactionResponse);
+  rpc ExecuteStep(ExecuteStepRequest) returns (ExecuteStepResponse);
+  rpc CommitTransaction(CommitTransactionRequest) returns (CommitTransactionResponse);
+  rpc RollbackTransaction(RollbackTransactionRequest) returns (RollbackTransactionResponse);
+  rpc GetTransaction(GetTransactionRequest) returns (GetTransactionResponse);
+}
+
+// Per-transaction override of the server's default rollback policy.
+message RollbackPolicy {
+  // Unset fields fall back to the server defaults.
+  // Maximum local backtrack depth D (steps rewound per local rollback). Default 2.
+  optional uint32 max_local_depth = 1;
+  // Global Step-0 resets allowed before the transaction is aborted. Default 1.
+  optional uint32 max_global_resets = 2;
+  // Replay budget = factor * N * ceil(log2(N + 1)) replayed steps. Default 2.0.
+  optional double replay_budget_factor = 3;
+}
+
+message BeginTransactionRequest {
+  // Opaque identifier of the calling agent (for audit/tracing).
+  string agent_id = 1;
+  map<string, string> metadata = 2;
+  optional RollbackPolicy policy = 3;
+}
+
+message BeginTransactionResponse {
+  string transaction_id = 1;
+  // Always 1 for a fresh transaction.
+  uint32 next_step_id = 2;
+}
+
+message ExecuteStepRequest {
+  string transaction_id = 1;
+  // Must equal the `next_step_id` last returned by the server.
+  uint32 step_id = 2;
+  string tool_name = 3;
+  // JSON object. String values of the form "${steps.<id>.<dot.path>}" are
+  // resolved against earlier step outputs and recorded as explicit dependencies.
+  string arguments_json = 4;
+  // The LLM context (reasoning/messages) that produced this step.
+  string raw_context = 5;
+}
+
+enum StepStatus {
+  STEP_STATUS_UNSPECIFIED = 0;
+  STEP_STATUS_SUCCESS = 1;
+  STEP_STATUS_ROLLBACK_TRIGGERED = 2;
+  STEP_STATUS_FAILED = 3;
+}
+
+enum RollbackStrategy {
+  ROLLBACK_STRATEGY_UNSPECIFIED = 0;
+  ROLLBACK_STRATEGY_NONE = 1;
+  ROLLBACK_STRATEGY_LOCAL_BACKTRACK = 2;
+  ROLLBACK_STRATEGY_DEPENDENCY_JUMP = 3;
+  ROLLBACK_STRATEGY_GLOBAL_RESET = 4;
+  ROLLBACK_STRATEGY_MANUAL = 5;
+  ROLLBACK_STRATEGY_ABORT = 6;
+}
+
+message ExecuteStepResponse {
+  StepStatus status = 1;
+  // Tool output (JSON) when status == SUCCESS.
+  string output_json = 2;
+  // Deterministic 1-line hint extracted from the raw error.
+  string clean_hint = 3;
+  RollbackStrategy strategy = 4;
+  // First step whose effects were undone (0 = full reset to initial state).
+  uint32 rollback_to_step = 5;
+  // Step id the agent must send next.
+  uint32 next_step_id = 6;
+  // Aggregated hint constraints to inject into the system prompt.
+  repeated string constraints = 7;
+  // True when the agent must discard its context window (global reset).
+  bool context_reset = 8;
+  string error_category = 9;
+  // Wall-clock time spent rewinding storage + running compensations.
+  double rollback_latency_ms = 10;
+  // Why the transaction was aborted (status == FAILED).
+  string abort_reason = 11;
+  // Saga undo actions that failed during this rollback.
+  repeated string compensation_errors = 12;
+}
+
+message CommitTransactionRequest {
+  string transaction_id = 1;
+}
+
+message CommitTransactionResponse {
+  bool committed = 1;
+  uint32 steps_committed = 2;
+  uint32 effects_dispatched = 3;
+  repeated string dispatch_errors = 4;
+}
+
+message RollbackTransactionRequest {
+  string transaction_id = 1;
+  // When set and > 0, rewind to just before this step and keep the
+  // transaction open. When unset or 0, abort the entire transaction.
+  optional uint32 to_step = 2;
+  string reason = 3;
+}
+
+message RollbackTransactionResponse {
+  bool rolled_back = 1;
+  // Next step to execute (0 if the transaction was fully aborted).
+  uint32 next_step_id = 2;
+  uint32 compensations_run = 3;
+  repeated string compensation_errors = 4;
+}
+
+message GetTransactionRequest {
+  string transaction_id = 1;
+}
+
+message ContextEntry {
+  uint32 step_id = 1;
+  string tool_name = 2;
+  string raw_context = 3;
+}
+
+message GetTransactionResponse {
+  string transaction_id = 1;
+  string status = 2;
+  uint32 next_step_id = 3;
+  repeated string constraints = 4;
+  uint32 global_resets = 5;
+  repeated ContextEntry context = 6;
+  string agent_id = 7;
+}

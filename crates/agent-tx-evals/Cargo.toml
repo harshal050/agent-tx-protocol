@@ -1,6 +1,0 @@
-[package]
-name = "agent-tx-evals"
-version = "0.1.0"
-edition = "2021"
-
-[dependencies]
