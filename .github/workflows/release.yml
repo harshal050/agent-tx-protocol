@@ -1,0 +1,97 @@
+name: Release
+
+# Builds ready-to-run `agenttx` programs and attaches them to a GitHub Release.
+# Publish a release by pushing a version tag:  git tag v0.1.0 && git push origin v0.1.0
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+    name: Build ${{ matrix.target }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { os: ubuntu-22.04, target: x86_64-unknown-linux-gnu, archive: tar.gz }
+          - { os: ubuntu-22.04-arm, target: aarch64-unknown-linux-gnu, archive: tar.gz }
+          - { os: macos-14, target: aarch64-apple-darwin, archive: tar.gz }
+          - { os: windows-latest, target: x86_64-pc-windows-msvc, archive: zip }
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+
+      - name: Install libclang (Linux)
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends clang libclang-dev
+
+      - name: Point bindgen at LLVM (Windows)
+        if: runner.os == 'Windows'
+        shell: bash
+        run: echo "LIBCLANG_PATH=C:\\Program Files\\LLVM\\bin" >> "$GITHUB_ENV"
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          key: ${{ matrix.target }}
+
+      - name: Build
+        run: cargo build --release --locked -p agenttx-protocol --target ${{ matrix.target }}
+
+      - name: Package
+        shell: bash
+        run: |
+          name="agenttx-${{ matrix.target }}"
+          bin="agenttx"
+          if [ "${{ runner.os }}" = "Windows" ]; then bin="agenttx.exe"; fi
+          mkdir -p "dist/$name"
+          cp "target/${{ matrix.target }}/release/$bin" "dist/$name/"
+          cp LICENSE README.md "dist/$name/"
+          cd dist
+          if [ "${{ matrix.archive }}" = "zip" ]; then
+            7z a "$name.zip" "$name" > /dev/null
+            sha256sum "$name.zip" > "$name.zip.sha256"
+          else
+            tar czf "$name.tar.gz" "$name"
+            shasum -a 256 "$name.tar.gz" > "$name.tar.gz.sha256"
+          fi
+
+      - name: Smoke test
+        shell: bash
+        run: |
+          bin="target/${{ matrix.target }}/release/agenttx"
+          "$bin" --version
+          "$bin" connect claude-code
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: agenttx-${{ matrix.target }}
+          path: dist/agenttx-${{ matrix.target }}.*
+
+  release:
+    name: Publish release
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v5
+        with:
+          path: dist
+          merge-multiple: true
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*
+          generate_release_notes: true

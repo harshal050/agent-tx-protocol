@@ -93,6 +93,26 @@ export class ContentSource {
     return null;
   }
 
+  /** Reads a binary file (for example a screenshot) with the same origin order as {@link read}. */
+  async readBytes(filePath: string): Promise<{ path: string; bytes: Uint8Array; origin: ContentOrigin } | null> {
+    const repoPath = normalizeRepoPath(filePath);
+    let failures = 0;
+    for (const origin of this.config.order) {
+      try {
+        const bytes =
+          origin === "github" ? await this.readGitHubBytes(repoPath) : await this.readLocalBytes(repoPath);
+        if (bytes) return { path: repoPath, bytes, origin };
+      } catch (error) {
+        if (this.config.order.length === 1) throw error;
+        failures++;
+      }
+    }
+    if (failures === this.config.order.length) {
+      throw new ContentFetchError(`every content origin failed for ${repoPath}`);
+    }
+    return null;
+  }
+
   async readJson(filePath: string): Promise<{ data: unknown; file: SourceFile } | null> {
     const file = await this.read(filePath);
     if (!file) return null;
@@ -116,6 +136,27 @@ export class ContentSource {
       throw new ContentFetchError(`GET ${url} returned ${response.status}`);
     }
     return response.text();
+  }
+
+  private async readGitHubBytes(repoPath: string): Promise<Uint8Array | null> {
+    const url = this.urls.raw(repoPath);
+    const response = await this.fetchImpl(url, {
+      headers: this.config.token ? { Authorization: `Bearer ${this.config.token}` } : undefined,
+      next: { revalidate: this.config.revalidateSeconds, tags: [CONTENT_CACHE_TAG] },
+    });
+    if (response.status === 404) return null;
+    if (!response.ok) throw new ContentFetchError(`GET ${url} returned ${response.status}`);
+    return new Uint8Array(await response.arrayBuffer());
+  }
+
+  private async readLocalBytes(repoPath: string): Promise<Uint8Array | null> {
+    const fullPath = path.join(this.config.localRoot, ...repoPath.split("/"));
+    try {
+      return new Uint8Array(await readFile(fullPath));
+    } catch (error) {
+      if (isMissingFile(error)) return null;
+      throw error;
+    }
   }
 
   private async readLocal(repoPath: string): Promise<string | null> {

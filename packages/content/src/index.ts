@@ -28,11 +28,18 @@ export interface DocPage {
 }
 
 /** High-level access to the documentation stored in the repository. */
+export interface DocsRepositoryOptions {
+  /** URL used for images referenced from Markdown. Defaults to raw.githubusercontent.com. */
+  assetUrl?: (repoPath: string) => string;
+}
+
 export class DocsRepository {
   readonly source: ContentSource;
+  private readonly assetUrl: (repoPath: string) => string;
 
-  constructor(source: ContentSource) {
+  constructor(source: ContentSource, options: DocsRepositoryOptions = {}) {
     this.source = source;
+    this.assetUrl = options.assetUrl ?? ((repoPath) => source.urls.raw(repoPath));
   }
 
   get config(): ContentConfig {
@@ -57,7 +64,7 @@ export class DocsRepository {
       sourcePath,
       resolveDocHref: (repoPath) => hrefByPath.get(repoPath),
       blobUrl: (repoPath) => this.source.urls.blob(repoPath),
-      rawUrl: (repoPath) => this.source.urls.raw(repoPath),
+      rawUrl: (repoPath) => this.assetUrl(repoPath),
     };
   }
 
@@ -91,6 +98,10 @@ export class DocsRepository {
   }
 }
 
-export function createDocsRepository(config?: ContentConfig, fetchImpl?: FetchLike): DocsRepository {
-  return new DocsRepository(new ContentSource(config ?? resolveContentConfig(), fetchImpl));
+export function createDocsRepository(
+  config?: ContentConfig,
+  fetchImpl?: FetchLike,
+  options?: DocsRepositoryOptions,
+): DocsRepository {
+  return new DocsRepository(new ContentSource(config ?? resolveContentConfig(), fetchImpl), options);
 }

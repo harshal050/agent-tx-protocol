@@ -13,7 +13,8 @@ import { cache } from "react";
 export const contentConfig = resolveContentConfig();
 export const repoLinks = repoUrls(contentConfig);
 
-const docs = createDocsRepository(contentConfig);
+/** Images in docs are served by the site itself (see app/docs-assets), so they work before and after a push. */
+const docs = createDocsRepository(contentConfig, undefined, { assetUrl: (repoPath) => `/docs-assets/${repoPath}` });
 const github = new GitHubClient(contentConfig);
 
 export const contentSource = docs.source;
