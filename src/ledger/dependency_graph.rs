@@ -138,7 +138,7 @@ impl DependencyGraph {
             .filter(|(id, _)| **id < step_id)
             .map(|(_, idx)| &self.graph[*idx])
             .collect();
-        producers.sort_by(|a, b| b.step_id.cmp(&a.step_id)); // most recent first
+        producers.sort_by_key(|p| std::cmp::Reverse(p.step_id)); // most recent first
 
         let mut implicit = Vec::new();
         let mut seen = HashSet::new();

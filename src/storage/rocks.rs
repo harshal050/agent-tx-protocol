@@ -31,6 +31,9 @@ const TAG_VALUE: u8 = 1;
 const VERSION_LEN: usize = 8;
 const OVERLAY_HEADER_LEN: usize = 1 + VERSION_LEN;
 
+/// Raw key/value pair read from RocksDB.
+type RawEntry = (Box<[u8]>, Box<[u8]>);
+
 /// Tunables for [`RocksStore::open`].
 #[derive(Debug, Clone)]
 pub struct StoreOptions {
@@ -510,7 +513,7 @@ impl RocksStore {
         &self,
         cf: &'static str,
         prefix: &[u8],
-    ) -> Result<Vec<(Box<[u8]>, Box<[u8]>)>> {
+    ) -> Result<Vec<RawEntry>> {
         let mut out = Vec::new();
         for item in self
             .db
