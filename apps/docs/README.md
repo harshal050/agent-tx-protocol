@@ -1,6 +1,6 @@
 # @agenttx/docs
 
-The AgentTx website: landing page, documentation and benchmark results. Built with Next.js (App Router), Tailwind CSS v4 and the shared `@agenttx/*` packages.
+The AgentTx website — live at **[agent-tx-protocol.vercel.app](https://agent-tx-protocol.vercel.app)** — landing page, documentation and benchmark results. Built with Next.js (App Router), Tailwind CSS v4 and the shared `@agenttx/*` packages.
 
 Content is **not** stored in this app:
 
@@ -32,7 +32,7 @@ In development the site reads `docs/` and `benchmarks/` from your checkout first
 | `AGENTTX_CONTENT_SOURCE` | `auto` | `auto` (GitHub first in production, local first in dev), `github`, or `local` |
 | `GITHUB_TOKEN` | — | Optional. Raises API limits and enables per-page "Updated" dates |
 | `GITHUB_WEBHOOK_SECRET` | — | Enables `POST /api/revalidate` |
-| `NEXT_PUBLIC_SITE_URL` | `http://localhost:3000` | Canonical URL for metadata and the sitemap |
+| `NEXT_PUBLIC_SITE_URL` | `https://agent-tx-protocol.vercel.app` | Canonical URL for metadata and the sitemap |
 
 ## Deploying on Vercel
 

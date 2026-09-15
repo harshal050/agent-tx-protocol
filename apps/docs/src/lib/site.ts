@@ -4,7 +4,7 @@ export const siteConfig = {
   tagline: "Transactions for AI agents.",
   description:
     "Open-source Rust proxy that wraps every LLM tool call in a transaction: root-cause rollbacks, millisecond state rewinds, Saga compensation and one-line Clean Hints.",
-  url: (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000").replace(/\/$/, ""),
+  url: (process.env.NEXT_PUBLIC_SITE_URL || "https://agent-tx-protocol.vercel.app").replace(/\/$/, ""),
   keywords: [
     "LLM agents",
     "AI agents",

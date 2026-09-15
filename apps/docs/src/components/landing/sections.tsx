@@ -27,6 +27,13 @@ import { RollbackVisual } from "./rollback-visual";
 
 const INSTALL = "cargo run --release -p agenttx-protocol";
 
+/** Short, readable commit headline for the hero badge. */
+function commitHeadline(message: string): string {
+  const merge = /^Merge pull request #(\d+)/.exec(message);
+  if (merge) return `Merged PR #${merge[1]}`;
+  return message.length > 56 ? `${message.slice(0, 55).trimEnd()}…` : message;
+}
+
 export function Hero({
   repoUrl,
   stars,
@@ -50,9 +57,9 @@ export function Hero({
             href={commit?.htmlUrl ?? repoUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="animate-fade-up inline-flex max-w-full items-center gap-2 rounded-full border border-border bg-surface/70 py-1 pr-3 pl-1 text-xs text-fg-muted backdrop-blur transition-colors hover:border-border-strong hover:text-fg"
+            className="animate-fade-up inline-flex max-w-full items-center gap-2 rounded-full sm:max-w-xl border border-border bg-surface/70 py-1 pr-3 pl-1 text-xs text-fg-muted backdrop-blur transition-colors hover:border-border-strong hover:text-fg"
           >
-            <span className="rounded-full bg-accent/12 px-2 py-0.5 text-[10.5px] font-semibold tracking-wider text-accent-ink uppercase">
+            <span className="shrink-0 rounded-full bg-accent/12 px-2 py-0.5 text-[10.5px] font-semibold tracking-wider whitespace-nowrap text-accent-ink uppercase">
               Open source
             </span>
             <span className="truncate">
@@ -60,7 +67,7 @@ export function Hero({
               {commit && (
                 <>
                   {" · "}
-                  <span className="font-mono">{commit.shortSha}</span> {commit.message}
+                  <span className="font-mono">{commit.shortSha}</span> {commitHeadline(commit.message)}
                 </>
               )}
             </span>

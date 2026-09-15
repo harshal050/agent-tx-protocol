@@ -2,6 +2,7 @@
   "name": "agenttx",
   "private": true,
   "description": "AgentTx monorepo: Rust transactional proxy for LLM agents, benchmarks and documentation site.",
+  "homepage": "https://agent-tx-protocol.vercel.app",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="96" viewBox="0 0 420 96" role="img" aria-labelledby="title">
+  <title id="title">AgentTx</title>
+  <rect width="96" height="96" rx="27" fill="#0b0b0b"/>
+  <path d="M27 63h42" stroke="#fafaf9" stroke-width="6.6" stroke-linecap="round"/>
+  <circle cx="27" cy="63" r="8.1" fill="#fafaf9"/>
+  <circle cx="48" cy="63" r="8.1" fill="#fafaf9"/>
+  <circle cx="69" cy="63" r="8.1" fill="#2a78d6"/>
+  <path d="M67.8 48.9C63 33.6 37.2 31.8 30 46.2" fill="none" stroke="#2a78d6" stroke-width="6.6" stroke-linecap="round"/>
+  <path d="M26.7 37.2l3.3 9.9 9.9-3.3" fill="none" stroke="#2a78d6" stroke-width="6.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="124" y="69" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="64" font-weight="700" letter-spacing="-2" textLength="288" lengthAdjust="spacingAndGlyphs"><tspan fill="#0b0b0b">Agent</tspan><tspan fill="#2a78d6">Tx</tspan></text>
+</svg>
