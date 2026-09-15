@@ -1,0 +1,1236 @@
+{
+  "schema_version": 1,
+  "generated_at_ms": 1789492592706,
+  "harness_version": "0.1.0",
+  "environment": {
+    "os": "linux",
+    "arch": "x86_64",
+    "cpu_model": "AMD Ryzen 5 5600H with Radeon Graphics",
+    "logical_cores": 12,
+    "memory_gb": 14.5,
+    "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)",
+    "build_profile": "release",
+    "git_sha": "5aa55672dbf56c50c4e8963f2adfcbeabbfe108e",
+    "git_dirty": true
+  },
+  "config": {
+    "quick": false,
+    "llm_step_ms": 1000
+  },
+  "methodology": {
+    "agent_model": "Deterministic scripted agent (no LLM). It fixes the root-cause step once any feedback in its context names the offending field, and follows the step the runner asks for next.",
+    "baseline_policy": "Common ReAct-style loop without a transaction layer: append the raw error to the context, retry the failing step up to 3 times, then restart from step 1 (up to 3 restarts). Each tool call auto-commits and side effects fire immediately. Duplicate-key errors on replay are treated as already done.",
+    "agenttx_policy": "Same agent and tools through the AgentTx engine with the default rollback policy (local depth 2, 1 global reset, replay budget factor 2.0). The agent receives only the Clean Hint.",
+    "token_estimate": "Tokens are estimated as ceil(bytes / 4).",
+    "modeled_latency": "Modeled end-to-end latency = tool calls × assumed LLM latency per call + measured harness wall time."
+  },
+  "simulation": [
+    {
+      "id": "root-cause-8",
+      "kind": "root-cause",
+      "title": "Silent root cause",
+      "description": "An early step stores the wrong customer id. The mistake only surfaces many steps later as a foreign-key violation.",
+      "steps": 8,
+      "root_step": 2,
+      "failing_step": 6,
+      "baseline": {
+        "succeeded": true,
+        "outcome": "completed",
+        "tool_executions": 17,
+        "failed_executions": 5,
+        "extra_executions": 9,
+        "context_feedback_bytes": 4113,
+        "context_feedback_tokens_est": 1029,
+        "effects_dispatched": 2,
+        "duplicate_side_effects": 1,
+        "leaked_side_effects": 0,
+        "orphaned_files": 1,
+        "wall_time_ms": 33.126873,
+        "modeled_latency_ms": 17033.126873,
+        "actions": {
+          "restart": 1,
+          "retry": 3,
+          "skip_duplicate": 1
+        },
+        "events": [
+          "step 6: retry with raw error in context",
+          "step 6: retry with raw error in context",
+          "step 6: retry with raw error in context",
+          "step 6: restart from step 1",
+          "step 1: duplicate on replay, treated as done"
+        ]
+      },
+      "agenttx": {
+        "succeeded": true,
+        "outcome": "committed",
+        "tool_executions": 13,
+        "failed_executions": 1,
+        "extra_executions": 5,
+        "context_feedback_bytes": 107,
+        "context_feedback_tokens_est": 27,
+        "effects_dispatched": 1,
+        "duplicate_side_effects": 0,
+        "leaked_side_effects": 0,
+        "orphaned_files": 0,
+        "wall_time_ms": 32.63698,
+        "modeled_latency_ms": 13032.63698,
+        "actions": {
+          "dependency_jump": 1
+        },
+        "events": [
+          "step 6: dependency_jump → resume at step 2"
+        ]
+      }
+    },
+    {
+      "id": "root-cause-16",
+      "kind": "root-cause",
+      "title": "Silent root cause",
+      "description": "An early step stores the wrong customer id. The mistake only surfaces many steps later as a foreign-key violation.",
+      "steps": 16,
+      "root_step": 4,
+      "failing_step": 12,
+      "baseline": {
+        "succeeded": true,
+        "outcome": "completed",
+        "tool_executions": 31,
+        "failed_executions": 5,
+        "extra_executions": 15,
+        "context_feedback_bytes": 4113,
+        "context_feedback_tokens_est": 1029,
+        "effects_dispatched": 3,
+        "duplicate_side_effects": 1,
+        "leaked_side_effects": 0,
+        "orphaned_files": 1,
+        "wall_time_ms": 34.937995,
+        "modeled_latency_ms": 31034.937995,
+        "actions": {
+          "restart": 1,
+          "retry": 3,
+          "skip_duplicate": 1
+        },
+        "events": [
+          "step 12: retry with raw error in context",
+          "step 12: retry with raw error in context",
+          "step 12: retry with raw error in context",
+          "step 12: restart from step 1",
+          "step 1: duplicate on replay, treated as done"
+        ]
+      },
+      "agenttx": {
+        "succeeded": true,
+        "outcome": "committed",
+        "tool_executions": 25,
+        "failed_executions": 1,
+        "extra_executions": 9,
+        "context_feedback_bytes": 107,
+        "context_feedback_tokens_est": 27,
+        "effects_dispatched": 2,
+        "duplicate_side_effects": 0,
+        "leaked_side_effects": 0,
+        "orphaned_files": 0,
+        "wall_time_ms": 33.017507,
+        "modeled_latency_ms": 25033.017507,
+        "actions": {
+          "dependency_jump": 1
+        },
+        "events": [
+          "step 12: dependency_jump → resume at step 4"
+        ]
+      }
+    },
+    {
+      "id": "root-cause-32",
+      "kind": "root-cause",
+      "title": "Silent root cause",
+      "description": "An early step stores the wrong customer id. The mistake only surfaces many steps later as a foreign-key violation.",
+      "steps": 32,
+      "root_step": 8,
+      "failing_step": 24,
+      "baseline": {
+        "succeeded": true,
+        "outcome": "completed",
+        "tool_executions": 59,
+        "failed_executions": 5,
+        "extra_executions": 27,
+        "context_feedback_bytes": 4113,
+        "context_feedback_tokens_est": 1029,
+        "effects_dispatched": 10,
+        "duplicate_side_effects": 4,
+        "leaked_side_effects": 0,
+        "orphaned_files": 1,
+        "wall_time_ms": 33.445634,
+        "modeled_latency_ms": 59033.445634,
+        "actions": {
+          "restart": 1,
+          "retry": 3,
+          "skip_duplicate": 1
+        },
+        "events": [
+          "step 24: retry with raw error in context",
+          "step 24: retry with raw error in context",
+          "step 24: retry with raw error in context",
+          "step 24: restart from step 1",
+          "step 1: duplicate on replay, treated as done"
+        ]
+      },
+      "agenttx": {
+        "succeeded": true,
+        "outcome": "committed",
+        "tool_executions": 49,
+        "failed_executions": 1,
+        "extra_executions": 17,
+        "context_feedback_bytes": 107,
+        "context_feedback_tokens_est": 27,
+        "effects_dispatched": 6,
+        "duplicate_side_effects": 0,
+        "leaked_side_effects": 0,
+        "orphaned_files": 0,
+        "wall_time_ms": 34.26607,
+        "modeled_latency_ms": 49034.26607,
+        "actions": {
+          "dependency_jump": 1
+        },
+        "events": [
+          "step 24: dependency_jump → resume at step 8"
+        ]
+      }
+    },
+    {
+      "id": "root-cause-64",
+      "kind": "root-cause",
+      "title": "Silent root cause",
+      "description": "An early step stores the wrong customer id. The mistake only surfaces many steps later as a foreign-key violation.",
+      "steps": 64,
+      "root_step": 16,
+      "failing_step": 48,
+      "baseline": {
+        "succeeded": true,
+        "outcome": "completed",
+        "tool_executions": 115,
+        "failed_executions": 5,
+        "extra_executions": 51,
+        "context_feedback_bytes": 4113,
+        "context_feedback_tokens_est": 1029,
+        "effects_dispatched": 21,
+        "duplicate_side_effects": 9,
+        "leaked_side_effects": 0,
+        "orphaned_files": 1,
+        "wall_time_ms": 37.109064999999994,
+        "modeled_latency_ms": 115037.109065,
+        "actions": {
+          "restart": 1,
+          "retry": 3,
+          "skip_duplicate": 1
+        },
+        "events": [
+          "step 48: retry with raw error in context",
+          "step 48: retry with raw error in context",
+          "step 48: retry with raw error in context",
+          "step 48: restart from step 1",
+          "step 1: duplicate on replay, treated as done"
+        ]
+      },
+      "agenttx": {
+        "succeeded": true,
+        "outcome": "committed",
+        "tool_executions": 97,
+        "failed_executions": 1,
+        "extra_executions": 33,
+        "context_feedback_bytes": 107,
+        "context_feedback_tokens_est": 27,
+        "effects_dispatched": 12,
+        "duplicate_side_effects": 0,
+        "leaked_side_effects": 0,
+        "orphaned_files": 0,
+        "wall_time_ms": 39.90935,
+        "modeled_latency_ms": 97039.90935,
+        "actions": {
+          "dependency_jump": 1
+        },
+        "events": [
+          "step 48: dependency_jump → resume at step 16"
+        ]
+      }
+    },
+    {
+      "id": "transient-8",
+      "kind": "transient",
+      "title": "Transient failure",
+      "description": "A payment call times out once and succeeds when tried again.",
+      "steps": 8,
+      "root_step": null,
+      "failing_step": 6,
+      "baseline": {
+        "succeeded": true,
+        "outcome": "completed",
+        "tool_executions": 9,
+        "failed_executions": 1,
+        "extra_executions": 1,
+        "context_feedback_bytes": 547,
+        "context_feedback_tokens_est": 137,
+        "effects_dispatched": 1,
+        "duplicate_side_effects": 0,
+        "leaked_side_effects": 0,
+        "orphaned_files": 0,
+        "wall_time_ms": 30.812754,
+        "modeled_latency_ms": 9030.812754,
+        "actions": {
+          "retry": 1
+        },
+        "events": [
+          "step 6: retry with raw error in context"
+        ]
+      },
+      "agenttx": {
+        "succeeded": true,
+        "outcome": "committed",
+        "tool_executions": 10,
+        "failed_executions": 1,
+        "extra_executions": 2,
+        "context_feedback_bytes": 92,
+        "context_feedback_tokens_est": 23,
+        "effects_dispatched": 1,
+        "duplicate_side_effects": 0,
+        "leaked_side_effects": 0,
+        "orphaned_files": 0,
+        "wall_time_ms": 31.247413,
+        "modeled_latency_ms": 10031.247413,
+        "actions": {
+          "local_backtrack": 1
+        },
+        "events": [
+          "step 6: local_backtrack → resume at step 5"
+        ]
+      }
+    },
+    {
+      "id": "transient-16",
+      "kind": "transient",
+      "title": "Transient failure",
+      "description": "A payment call times out once and succeeds when tried again.",
+      "steps": 16,
+      "root_step": null,
+      "failing_step": 12,
+      "baseline": {
+        "succeeded": true,
+        "outcome": "completed",
+        "tool_executions": 17,
+        "failed_executions": 1,
+        "extra_executions": 1,
+        "context_feedback_bytes": 547,
+        "context_feedback_tokens_est": 137,
+        "effects_dispatched": 2,
+        "duplicate_side_effects": 0,
+        "leaked_side_effects": 0,
+        "orphaned_files": 0,
+        "wall_time_ms": 32.520681,
+        "modeled_latency_ms": 17032.520681,
+        "actions": {
+          "retry": 1
+        },
+        "events": [
+          "step 12: retry with raw error in context"
+        ]
+      },
+      "agenttx": {
+        "succeeded": true,
+        "outcome": "committed",
+        "tool_executions": 18,
+        "failed_executions": 1,
+        "extra_executions": 2,
+        "context_feedback_bytes": 92,
+        "context_feedback_tokens_est": 23,
+        "effects_dispatched": 2,
+        "duplicate_side_effects": 0,
+        "leaked_side_effects": 0,
+        "orphaned_files": 0,
+        "wall_time_ms": 31.967710000000004,
+        "modeled_latency_ms": 18031.96771,
+        "actions": {
+          "local_backtrack": 1
+        },
+        "events": [
+          "step 12: local_backtrack → resume at step 11"
+        ]
+      }
+    },
+    {
+      "id": "transient-32",
+      "kind": "transient",
+      "title": "Transient failure",
+      "description": "A payment call times out once and succeeds when tried again.",
+      "steps": 32,
+      "root_step": null,
+      "failing_step": 24,
+      "baseline": {
+        "succeeded": true,
+        "outcome": "completed",
+        "tool_executions": 33,
+        "failed_executions": 1,
+        "extra_executions": 1,
+        "context_feedback_bytes": 547,
+        "context_feedback_tokens_est": 137,
+        "effects_dispatched": 6,
+        "duplicate_side_effects": 0,
+        "leaked_side_effects": 0,
+        "orphaned_files": 0,
+        "wall_time_ms": 31.928435999999998,
+        "modeled_latency_ms": 33031.928436,
+        "actions": {
+          "retry": 1
+        },
+        "events": [
+          "step 24: retry with raw error in context"
+        ]
+      },
+      "agenttx": {
+        "succeeded": true,
+        "outcome": "committed",
+        "tool_executions": 34,
+        "failed_executions": 1,
+        "extra_executions": 2,
+        "context_feedback_bytes": 92,
+        "context_feedback_tokens_est": 23,
+        "effects_dispatched": 6,
+        "duplicate_side_effects": 0,
+        "leaked_side_effects": 0,
+        "orphaned_files": 0,
+        "wall_time_ms": 33.553607,
+        "modeled_latency_ms": 34033.553607,
+        "actions": {
+          "local_backtrack": 1
+        },
+        "events": [
+          "step 24: local_backtrack → resume at step 23"
+        ]
+      }
+    },
+    {
+      "id": "transient-64",
+      "kind": "transient",
+      "title": "Transient failure",
+      "description": "A payment call times out once and succeeds when tried again.",
+      "steps": 64,
+      "root_step": null,
+      "failing_step": 48,
+      "baseline": {
+        "succeeded": true,
+        "outcome": "completed",
+        "tool_executions": 65,
+        "failed_executions": 1,
+        "extra_executions": 1,
+        "context_feedback_bytes": 547,
+        "context_feedback_tokens_est": 137,
+        "effects_dispatched": 12,
+        "duplicate_side_effects": 0,
+        "leaked_side_effects": 0,
+        "orphaned_files": 0,
+        "wall_time_ms": 34.343976999999995,
+        "modeled_latency_ms": 65034.343977,
+        "actions": {
+          "retry": 1
+        },
+        "events": [
+          "step 48: retry with raw error in context"
+        ]
+      },
+      "agenttx": {
+        "succeeded": true,
+        "outcome": "committed",
+        "tool_executions": 66,
+        "failed_executions": 1,
+        "extra_executions": 2,
+        "context_feedback_bytes": 92,
+        "context_feedback_tokens_est": 23,
+        "effects_dispatched": 12,
+        "duplicate_side_effects": 0,
+        "leaked_side_effects": 0,
+        "orphaned_files": 0,
+        "wall_time_ms": 36.2629,
+        "modeled_latency_ms": 66036.2629,
+        "actions": {
+          "local_backtrack": 1
+        },
+        "events": [
+          "step 48: local_backtrack → resume at step 47"
+        ]
+      }
+    },
+    {
+      "id": "persistent-8",
+      "kind": "persistent",
+      "title": "Unrecoverable failure",
+      "description": "A reconciliation step fails every time, so the task cannot succeed. Measures how each approach stops and what it leaves behind.",
+      "steps": 8,
+      "root_step": null,
+      "failing_step": 6,
+      "baseline": {
+        "succeeded": false,
+        "outcome": "gave up",
+        "tool_executions": 36,
+        "failed_executions": 19,
+        "extra_executions": 28,
+        "context_feedback_bytes": 6103,
+        "context_feedback_tokens_est": 1526,
+        "effects_dispatched": 4,
+        "duplicate_side_effects": 3,
+        "leaked_side_effects": 4,
+        "orphaned_files": 1,
+        "wall_time_ms": 30.963448,
+        "modeled_latency_ms": 36030.963448,
+        "actions": {
+          "give_up": 1,
+          "restart": 3,
+          "retry": 12,
+          "skip_duplicate": 3
+        },
+        "events": [
+          "step 6: retry with raw error in context",
+          "step 6: retry with raw error in context",
+          "step 6: retry with raw error in context",
+          "step 6: restart from step 1",
+          "step 1: duplicate on replay, treated as done",
+          "step 6: retry with raw error in context",
+          "step 6: retry with raw error in context",
+          "step 6: retry with raw error in context",
+          "step 6: restart from step 1",
+          "step 1: duplicate on replay, treated as done",
+          "step 6: retry with raw error in context",
+          "step 6: retry with raw error in context",
+          "step 6: retry with raw error in context",
+          "step 6: restart from step 1",
+          "step 1: duplicate on replay, treated as done",
+          "step 6: retry with raw error in context",
+          "step 6: retry with raw error in context",
+          "step 6: retry with raw error in context",
+          "step 6: gave up after 3 restarts"
+        ]
+      },
+      "agenttx": {
+        "succeeded": false,
+        "outcome": "aborted",
+        "tool_executions": 22,
+        "failed_executions": 6,
+        "extra_executions": 14,
+        "context_feedback_bytes": 918,
+        "context_feedback_tokens_est": 230,
+        "effects_dispatched": 0,
+        "duplicate_side_effects": 0,
+        "leaked_side_effects": 0,
+        "orphaned_files": 0,
+        "wall_time_ms": 34.594718,
+        "modeled_latency_ms": 22034.594718,
+        "actions": {
+          "abort": 1,
+          "global_reset": 1,
+          "local_backtrack": 4
+        },
+        "events": [
+          "step 6: local_backtrack → resume at step 5",
+          "step 6: local_backtrack → resume at step 4",
+          "step 6: global_reset → resume at step 1",
+          "step 6: local_backtrack → resume at step 5",
+          "step 6: local_backtrack → resume at step 4",
+          "step 6: abort, all effects compensated"
+        ]
+      }
+    },
+    {
+      "id": "persistent-16",
+      "kind": "persistent",
+      "title": "Unrecoverable failure",
+      "description": "A reconciliation step fails every time, so the task cannot succeed. Measures how each approach stops and what it leaves behind.",
+      "steps": 16,
+      "root_step": null,
+      "failing_step": 12,
+      "baseline": {
+        "succeeded": false,
+        "outcome": "gave up",
+        "tool_executions": 60,
+        "failed_executions": 19,
+        "extra_executions": 44,
+        "context_feedback_bytes": 6103,
+        "context_feedback_tokens_est": 1526,
+        "effects_dispatched": 4,
+        "duplicate_side_effects": 3,
+        "leaked_side_effects": 4,
+        "orphaned_files": 4,
+        "wall_time_ms": 34.268113,
+        "modeled_latency_ms": 60034.268113,
+        "actions": {
+          "give_up": 1,
+          "restart": 3,
+          "retry": 12,
+          "skip_duplicate": 3
+        },
+        "events": [
+          "step 12: retry with raw error in context",
+          "step 12: retry with raw error in context",
+          "step 12: retry with raw error in context",
+          "step 12: restart from step 1",
+          "step 1: duplicate on replay, treated as done",
+          "step 12: retry with raw error in context",
+          "step 12: retry with raw error in context",
+          "step 12: retry with raw error in context",
+          "step 12: restart from step 1",
+          "step 1: duplicate on replay, treated as done",
+          "step 12: retry with raw error in context",
+          "step 12: retry with raw error in context",
+          "step 12: retry with raw error in context",
+          "step 12: restart from step 1",
+          "step 1: duplicate on replay, treated as done",
+          "step 12: retry with raw error in context",
+          "step 12: retry with raw error in context",
+          "step 12: retry with raw error in context",
+          "step 12: gave up after 3 restarts"
+        ]
+      },
+      "agenttx": {
+        "succeeded": false,
+        "outcome": "aborted",
+        "tool_executions": 34,
+        "failed_executions": 6,
+        "extra_executions": 18,
+        "context_feedback_bytes": 918,
+        "context_feedback_tokens_est": 230,
+        "effects_dispatched": 0,
+        "duplicate_side_effects": 0,
+        "leaked_side_effects": 0,
+        "orphaned_files": 0,
+        "wall_time_ms": 33.964371,
+        "modeled_latency_ms": 34033.964371,
+        "actions": {
+          "abort": 1,
+          "global_reset": 1,
+          "local_backtrack": 4
+        },
+        "events": [
+          "step 12: local_backtrack → resume at step 11",
+          "step 12: local_backtrack → resume at step 10",
+          "step 12: global_reset → resume at step 1",
+          "step 12: local_backtrack → resume at step 11",
+          "step 12: local_backtrack → resume at step 10",
+          "step 12: abort, all effects compensated"
+        ]
+      }
+    },
+    {
+      "id": "persistent-32",
+      "kind": "persistent",
+      "title": "Unrecoverable failure",
+      "description": "A reconciliation step fails every time, so the task cannot succeed. Measures how each approach stops and what it leaves behind.",
+      "steps": 32,
+      "root_step": null,
+      "failing_step": 24,
+      "baseline": {
+        "succeeded": false,
+        "outcome": "gave up",
+        "tool_executions": 108,
+        "failed_executions": 19,
+        "extra_executions": 76,
+        "context_feedback_bytes": 6103,
+        "context_feedback_tokens_est": 1526,
+        "effects_dispatched": 16,
+        "duplicate_side_effects": 12,
+        "leaked_side_effects": 16,
+        "orphaned_files": 6,
+        "wall_time_ms": 36.884311000000004,
+        "modeled_latency_ms": 108036.884311,
+        "actions": {
+          "give_up": 1,
+          "restart": 3,
+          "retry": 12,
+          "skip_duplicate": 3
+        },
+        "events": [
+          "step 24: retry with raw error in context",
+          "step 24: retry with raw error in context",
+          "step 24: retry with raw error in context",
+          "step 24: restart from step 1",
+          "step 1: duplicate on replay, treated as done",
+          "step 24: retry with raw error in context",
+          "step 24: retry with raw error in context",
+          "step 24: retry with raw error in context",
+          "step 24: restart from step 1",
+          "step 1: duplicate on replay, treated as done",
+          "step 24: retry with raw error in context",
+          "step 24: retry with raw error in context",
+          "step 24: retry with raw error in context",
+          "step 24: restart from step 1",
+          "step 1: duplicate on replay, treated as done",
+          "step 24: retry with raw error in context",
+          "step 24: retry with raw error in context",
+          "step 24: retry with raw error in context",
+          "step 24: gave up after 3 restarts"
+        ]
+      },
+      "agenttx": {
+        "succeeded": false,
+        "outcome": "aborted",
+        "tool_executions": 58,
+        "failed_executions": 6,
+        "extra_executions": 26,
+        "context_feedback_bytes": 918,
+        "context_feedback_tokens_est": 230,
+        "effects_dispatched": 0,
+        "duplicate_side_effects": 0,
+        "leaked_side_effects": 0,
+        "orphaned_files": 0,
+        "wall_time_ms": 35.719147,
+        "modeled_latency_ms": 58035.719147,
+        "actions": {
+          "abort": 1,
+          "global_reset": 1,
+          "local_backtrack": 4
+        },
+        "events": [
+          "step 24: local_backtrack → resume at step 23",
+          "step 24: local_backtrack → resume at step 22",
+          "step 24: global_reset → resume at step 1",
+          "step 24: local_backtrack → resume at step 23",
+          "step 24: local_backtrack → resume at step 22",
+          "step 24: abort, all effects compensated"
+        ]
+      }
+    },
+    {
+      "id": "persistent-64",
+      "kind": "persistent",
+      "title": "Unrecoverable failure",
+      "description": "A reconciliation step fails every time, so the task cannot succeed. Measures how each approach stops and what it leaves behind.",
+      "steps": 64,
+      "root_step": null,
+      "failing_step": 48,
+      "baseline": {
+        "succeeded": false,
+        "outcome": "gave up",
+        "tool_executions": 204,
+        "failed_executions": 19,
+        "extra_executions": 140,
+        "context_feedback_bytes": 6103,
+        "context_feedback_tokens_est": 1526,
+        "effects_dispatched": 36,
+        "duplicate_side_effects": 27,
+        "leaked_side_effects": 36,
+        "orphaned_files": 13,
+        "wall_time_ms": 44.746622,
+        "modeled_latency_ms": 204044.746622,
+        "actions": {
+          "give_up": 1,
+          "restart": 3,
+          "retry": 12,
+          "skip_duplicate": 3
+        },
+        "events": [
+          "step 48: retry with raw error in context",
+          "step 48: retry with raw error in context",
+          "step 48: retry with raw error in context",
+          "step 48: restart from step 1",
+          "step 1: duplicate on replay, treated as done",
+          "step 48: retry with raw error in context",
+          "step 48: retry with raw error in context",
+          "step 48: retry with raw error in context",
+          "step 48: restart from step 1",
+          "step 1: duplicate on replay, treated as done",
+          "step 48: retry with raw error in context",
+          "step 48: retry with raw error in context",
+          "step 48: retry with raw error in context",
+          "step 48: restart from step 1",
+          "step 1: duplicate on replay, treated as done",
+          "step 48: retry with raw error in context",
+          "step 48: retry with raw error in context",
+          "step 48: retry with raw error in context",
+          "step 48: gave up after 3 restarts"
+        ]
+      },
+      "agenttx": {
+        "succeeded": false,
+        "outcome": "aborted",
+        "tool_executions": 106,
+        "failed_executions": 6,
+        "extra_executions": 42,
+        "context_feedback_bytes": 918,
+        "context_feedback_tokens_est": 230,
+        "effects_dispatched": 0,
+        "duplicate_side_effects": 0,
+        "leaked_side_effects": 0,
+        "orphaned_files": 0,
+        "wall_time_ms": 42.116837999999994,
+        "modeled_latency_ms": 106042.116838,
+        "actions": {
+          "abort": 1,
+          "global_reset": 1,
+          "local_backtrack": 4
+        },
+        "events": [
+          "step 48: local_backtrack → resume at step 47",
+          "step 48: local_backtrack → resume at step 46",
+          "step 48: global_reset → resume at step 1",
+          "step 48: local_backtrack → resume at step 47",
+          "step 48: local_backtrack → resume at step 46",
+          "step 48: abort, all effects compensated"
+        ]
+      }
+    }
+  ],
+  "step_latency": [
+    {
+      "mode": "direct",
+      "label": "Direct write (no protocol)",
+      "description": "Before: the tool's effect as one auto-committed RocksDB put. No transaction, snapshot, journal or rollback.",
+      "summary": {
+        "samples": 5000,
+        "mean_us": 3.4396034000000117,
+        "min_us": 2.965,
+        "p50_us": 3.3560000000000003,
+        "p90_us": 3.5269999999999997,
+        "p95_us": 3.646,
+        "p99_us": 5.871,
+        "max_us": 28.995
+      }
+    },
+    {
+      "mode": "engine",
+      "label": "AgentTx engine (in-process)",
+      "description": "After: snapshot pointer, journaled overlay write, dependency-graph update and output record, embedded as a library.",
+      "summary": {
+        "samples": 5000,
+        "mean_us": 62.89395639999996,
+        "min_us": 37.691,
+        "p50_us": 52.509,
+        "p90_us": 93.206,
+        "p95_us": 128.202,
+        "p99_us": 184.207,
+        "max_us": 257.565
+      }
+    },
+    {
+      "mode": "grpc",
+      "label": "AgentTx over gRPC (loopback)",
+      "description": "After, as a proxy: full ExecuteStep round-trip over HTTP/2 on localhost, including protobuf encoding and the engine.",
+      "summary": {
+        "samples": 5000,
+        "mean_us": 506.36535540000034,
+        "min_us": 163.38799999999998,
+        "p50_us": 348.00500000000005,
+        "p90_us": 770.211,
+        "p95_us": 801.56,
+        "p99_us": 884.166,
+        "max_us": 41863.341
+      }
+    }
+  ],
+  "snapshot_restore": [
+    {
+      "journal_entries": 10,
+      "restore": {
+        "samples": 7,
+        "mean_us": 64.63157142857143,
+        "min_us": 49.342999999999996,
+        "p50_us": 56.286,
+        "p90_us": 110.408,
+        "p95_us": 110.408,
+        "p99_us": 110.408,
+        "max_us": 110.408
+      },
+      "forward_writes": {
+        "samples": 7,
+        "mean_us": 138.11442857142856,
+        "min_us": 125.27600000000001,
+        "p50_us": 128.582,
+        "p90_us": 178.767,
+        "p95_us": 178.767,
+        "p99_us": 178.767,
+        "max_us": 178.767
+      }
+    },
+    {
+      "journal_entries": 100,
+      "restore": {
+        "samples": 7,
+        "mean_us": 324.6845714285715,
+        "min_us": 249.74099999999999,
+        "p50_us": 337.226,
+        "p90_us": 348.777,
+        "p95_us": 348.777,
+        "p99_us": 348.777,
+        "max_us": 348.777
+      },
+      "forward_writes": {
+        "samples": 7,
+        "mean_us": 1268.6998571428574,
+        "min_us": 1095.454,
+        "p50_us": 1296.5520000000001,
+        "p90_us": 1319.1850000000002,
+        "p95_us": 1319.1850000000002,
+        "p99_us": 1319.1850000000002,
+        "max_us": 1319.1850000000002
+      }
+    },
+    {
+      "journal_entries": 1000,
+      "restore": {
+        "samples": 7,
+        "mean_us": 3922.5792857142856,
+        "min_us": 3585.544,
+        "p50_us": 3940.924,
+        "p90_us": 4417.782,
+        "p95_us": 4417.782,
+        "p99_us": 4417.782,
+        "max_us": 4417.782
+      },
+      "forward_writes": {
+        "samples": 7,
+        "mean_us": 13660.145142857142,
+        "min_us": 12853.643,
+        "p50_us": 13666.795,
+        "p90_us": 14445.792000000001,
+        "p95_us": 14445.792000000001,
+        "p99_us": 14445.792000000001,
+        "max_us": 14445.792000000001
+      }
+    },
+    {
+      "journal_entries": 10000,
+      "restore": {
+        "samples": 7,
+        "mean_us": 61636.05071428572,
+        "min_us": 56801.06,
+        "p50_us": 62526.155,
+        "p90_us": 65243.873999999996,
+        "p95_us": 65243.873999999996,
+        "p99_us": 65243.873999999996,
+        "max_us": 65243.873999999996
+      },
+      "forward_writes": {
+        "samples": 7,
+        "mean_us": 144337.71842857142,
+        "min_us": 139947.027,
+        "p50_us": 144686.20500000002,
+        "p90_us": 148175.458,
+        "p95_us": 148175.458,
+        "p99_us": 148175.458,
+        "max_us": 148175.458
+      }
+    },
+    {
+      "journal_entries": 100000,
+      "restore": {
+        "samples": 7,
+        "mean_us": 355440.3092857143,
+        "min_us": 209697.831,
+        "p50_us": 291202.10699999996,
+        "p90_us": 800205.661,
+        "p95_us": 800205.661,
+        "p99_us": 800205.661,
+        "max_us": 800205.661
+      },
+      "forward_writes": {
+        "samples": 7,
+        "mean_us": 874597.2295714284,
+        "min_us": 613871.9809999999,
+        "p50_us": 658710.106,
+        "p90_us": 1616537.94,
+        "p95_us": 1616537.94,
+        "p99_us": 1616537.94,
+        "max_us": 1616537.94
+      }
+    }
+  ],
+  "commit": [
+    {
+      "keys": 10,
+      "commit": {
+        "samples": 5,
+        "mean_us": 42.3538,
+        "min_us": 35.806999999999995,
+        "p50_us": 38.242,
+        "p90_us": 61.276,
+        "p95_us": 61.276,
+        "p99_us": 61.276,
+        "max_us": 61.276
+      }
+    },
+    {
+      "keys": 100,
+      "commit": {
+        "samples": 5,
+        "mean_us": 287.8962,
+        "min_us": 271.37100000000004,
+        "p50_us": 283.544,
+        "p90_us": 314.152,
+        "p95_us": 314.152,
+        "p99_us": 314.152,
+        "max_us": 314.152
+      }
+    },
+    {
+      "keys": 1000,
+      "commit": {
+        "samples": 5,
+        "mean_us": 2944.9812,
+        "min_us": 2766.792,
+        "p50_us": 2979.121,
+        "p90_us": 3130.9480000000003,
+        "p95_us": 3130.9480000000003,
+        "p99_us": 3130.9480000000003,
+        "max_us": 3130.9480000000003
+      }
+    },
+    {
+      "keys": 10000,
+      "commit": {
+        "samples": 5,
+        "mean_us": 31439.4444,
+        "min_us": 30040.398999999998,
+        "p50_us": 31430.407,
+        "p90_us": 33059.146,
+        "p95_us": 33059.146,
+        "p99_us": 33059.146,
+        "max_us": 33059.146
+      }
+    },
+    {
+      "keys": 50000,
+      "commit": {
+        "samples": 5,
+        "mean_us": 199677.2414,
+        "min_us": 167432.334,
+        "p50_us": 201044.521,
+        "p90_us": 228122.319,
+        "p95_us": 228122.319,
+        "p99_us": 228122.319,
+        "max_us": 228122.319
+      }
+    }
+  ],
+  "error_cleaner": [
+    {
+      "id": "java-postgres-fk",
+      "label": "PostgreSQL foreign key (Spring/JDBC)",
+      "runtime": "Java",
+      "raw": "org.springframework.dao.DataIntegrityViolationException: could not execute statement; SQL [n/a]; constraint [orders_user_id_fkey]\n\tat org.springframework.orm.jpa.vendor.HibernateJpaDialect.convertHibernateAccessException(HibernateJpaDialect.java:276)\n\tat org.springframework.orm.jpa.vendor.HibernateJpaDialect.translateExceptionIfPossible(HibernateJpaDialect.java:233)\n\tat org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:137)\n\tat org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)\n\tat com.acme.orders.OrderService$$SpringCGLIB$$0.createOrder(<generated>)\n\tat com.acme.agent.tools.CreateOrderTool.execute(CreateOrderTool.java:58)\n\tat com.acme.agent.runtime.ToolDispatcher.dispatch(ToolDispatcher.java:112)\nCaused by: org.hibernate.exception.ConstraintViolationException: could not execute statement\n\tat org.hibernate.exception.internal.SQLStateConversionDelegate.convert(SQLStateConversionDelegate.java:95)\n\tat org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:56)\n\tat org.hibernate.engine.jdbc.internal.ResultSetReturnImpl.executeUpdate(ResultSetReturnImpl.java:197)\n\tat org.hibernate.persister.entity.AbstractEntityPersister.insert(AbstractEntityPersister.java:3375)\n\t... 42 more\nCaused by: org.postgresql.util.PSQLException: ERROR: insert or update on table \"orders\" violates foreign key constraint \"orders_user_id_fkey\"\n  Detail: Key (user_id)=(101) is not present in table \"users\".\n\tat org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2713)\n\tat org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2401)\n\tat org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:368)\n\tat org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:498)\n\tat org.postgresql.jdbc.PgPreparedStatement.executeWithFlags(PgPreparedStatement.java:152)\n\tat com.zaxxer.hikari.pool.ProxyPreparedStatement.executeUpdate(ProxyPreparedStatement.java:61)\n\tat com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeUpdate(HikariProxyPreparedStatement.java)\n\t... 51 more",
+      "raw_bytes": 2197,
+      "raw_lines": 24,
+      "hint_bytes": 99,
+      "reduction_pct": 95.49385525716887,
+      "hint": "Hint: Foreign key constraint failed for 'user_id'. Ensure target user exists before step execution.",
+      "rule": "pg_foreign_key",
+      "category": "foreign_key_violation",
+      "key": "user_id",
+      "parse": {
+        "samples": 20000,
+        "mean_us": 7.2438611499999706,
+        "min_us": 7.094,
+        "p50_us": 7.183,
+        "p90_us": 7.253,
+        "p95_us": 7.313,
+        "p99_us": 8.175,
+        "max_us": 52.068
+      }
+    },
+    {
+      "id": "python-keyerror",
+      "label": "Missing key in tool payload",
+      "runtime": "Python",
+      "raw": "Traceback (most recent call last):\n  File \"/app/.venv/lib/python3.12/site-packages/langchain_core/tools/base.py\", line 689, in run\n    response = context.run(self._run, *tool_args, **tool_kwargs)\n  File \"/app/tools/crm.py\", line 41, in _run\n    return self.client.update_contact(payload)\n  File \"/app/clients/crm_client.py\", line 118, in update_contact\n    contact_id = payload[\"contact_id\"]\n                 ~~~~~~~^^^^^^^^^^^^^^\nKeyError: 'contact_id'",
+      "raw_bytes": 453,
+      "raw_lines": 9,
+      "hint_bytes": 103,
+      "reduction_pct": 77.2626931567329,
+      "hint": "Hint: Missing key 'contact_id' in input payload. Verify the upstream step output provides 'contact_id'.",
+      "rule": "python_key_error",
+      "category": "missing_key",
+      "key": "contact_id",
+      "parse": {
+        "samples": 20000,
+        "mean_us": 2.1090633000001953,
+        "min_us": 2.034,
+        "p50_us": 2.084,
+        "p90_us": 2.124,
+        "p95_us": 2.184,
+        "p99_us": 2.234,
+        "max_us": 11.853
+      }
+    },
+    {
+      "id": "node-undefined",
+      "label": "Property read on undefined",
+      "runtime": "Node.js",
+      "raw": "TypeError: Cannot read properties of undefined (reading 'id')\n    at buildShipment (/srv/tools/shipping/src/shipment.ts:74:31)\n    at ShippingTool.invoke (/srv/tools/shipping/src/tool.ts:39:18)\n    at async ToolRouter.handle (/srv/tools/core/src/router.ts:122:20)\n    at async /srv/tools/core/node_modules/@modelcontextprotocol/sdk/dist/esm/server/index.js:204:28\n    at async Promise.all (index 0)",
+      "raw_bytes": 398,
+      "raw_lines": 6,
+      "hint_bytes": 88,
+      "reduction_pct": 77.8894472361809,
+      "hint": "Hint: Accessed 'id' on a null value. Ensure the upstream step returns a non-null object.",
+      "rule": "null_attribute",
+      "category": "null_reference",
+      "key": "id",
+      "parse": {
+        "samples": 20000,
+        "mean_us": 2.787252850000525,
+        "min_us": 2.705,
+        "p50_us": 2.756,
+        "p90_us": 2.796,
+        "p95_us": 2.866,
+        "p99_us": 2.955,
+        "max_us": 21.37
+      }
+    },
+    {
+      "id": "java-mysql-duplicate",
+      "label": "MySQL duplicate entry (JDBC)",
+      "runtime": "Java",
+      "raw": "java.sql.SQLIntegrityConstraintViolationException: Duplicate entry 'ada@example.com' for key 'users.email'\n\tat com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:118)\n\tat com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)\n\tat com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:916)\n\tat com.mysql.cj.jdbc.ClientPreparedStatement.executeUpdateInternal(ClientPreparedStatement.java:1061)\n\tat com.mysql.cj.jdbc.ClientPreparedStatement.executeLargeUpdate(ClientPreparedStatement.java:1346)\n\tat com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeUpdate(HikariProxyPreparedStatement.java)\n\tat com.acme.users.UserRepository.insert(UserRepository.java:44)\n\tat com.acme.agent.tools.SignupTool.execute(SignupTool.java:31)",
+      "raw_bytes": 823,
+      "raw_lines": 9,
+      "hint_bytes": 130,
+      "reduction_pct": 84.20413122721749,
+      "hint": "Hint: Unique constraint violated for 'email' (value 'ada@example.com' already exists). Use a new value or update the existing row.",
+      "rule": "mysql_duplicate",
+      "category": "unique_violation",
+      "key": "email",
+      "parse": {
+        "samples": 20000,
+        "mean_us": 3.888144750000231,
+        "min_us": 3.737,
+        "p50_us": 3.8369999999999997,
+        "p90_us": 3.888,
+        "p95_us": 3.958,
+        "p99_us": 5.16,
+        "max_us": 23.966
+      }
+    },
+    {
+      "id": "python-http-429",
+      "label": "Upstream rate limit",
+      "runtime": "Python",
+      "raw": "Traceback (most recent call last):\n  File \"/app/tools/search.py\", line 63, in search_web\n    response.raise_for_status()\n  File \"/app/.venv/lib/python3.12/site-packages/httpx/_models.py\", line 829, in raise_for_status\n    raise HTTPStatusError(message, request=request, response=self)\nhttpx.HTTPStatusError: Client error '429 Too Many Requests' for url 'https://api.search.example.com/v2/query?q=agent+transactions'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+      "raw_bytes": 504,
+      "raw_lines": 7,
+      "hint_bytes": 80,
+      "reduction_pct": 84.12698412698413,
+      "hint": "Hint: Rate limited by upstream API. Reduce request frequency or batch the calls.",
+      "rule": "rate_limited",
+      "category": "rate_limited",
+      "key": null,
+      "parse": {
+        "samples": 20000,
+        "mean_us": 3.6591362999998864,
+        "min_us": 3.436,
+        "p50_us": 3.5260000000000002,
+        "p90_us": 3.617,
+        "p95_us": 5.0089999999999995,
+        "p99_us": 5.29,
+        "max_us": 24.516000000000002
+      }
+    },
+    {
+      "id": "go-connection-refused",
+      "label": "Database unreachable",
+      "runtime": "Go",
+      "raw": "inventory tool failed: reserve stock for sku \"SKU-4412\": failed to connect to `host=10.0.3.12 user=inventory database=inventory`: dial error (dial tcp 10.0.3.12:5432: connect: connection refused)\ngoroutine 187 [running]:\ngithub.com/acme/agent-tools/inventory.(*Service).Reserve(0xc0001a2000, {0x1a3b2c0, 0xc000482000}, {0xc00012e0f0, 0x8}, 0x3)\n\t/src/inventory/service.go:92 +0x3c5\ngithub.com/acme/agent-tools/rpc.(*ToolServer).Call(0xc000118480, {0x1a3b2c0, 0xc000482000}, 0xc0004a4000)\n\t/src/rpc/server.go:141 +0x2b1",
+      "raw_bytes": 518,
+      "raw_lines": 6,
+      "hint_bytes": 82,
+      "reduction_pct": 84.16988416988417,
+      "hint": "Hint: Dependency is unreachable. Verify the host/port or use an available service.",
+      "rule": "connection_failure",
+      "category": "connection_failure",
+      "key": null,
+      "parse": {
+        "samples": 20000,
+        "mean_us": 2.4119780499992824,
+        "min_us": 2.3240000000000003,
+        "p50_us": 2.384,
+        "p90_us": 2.405,
+        "p95_us": 2.415,
+        "p99_us": 3.337,
+        "max_us": 15.950000000000001
+      }
+    },
+    {
+      "id": "rust-serde-missing-field",
+      "label": "Argument validation (serde)",
+      "runtime": "Rust",
+      "raw": "Error: failed to execute tool `create_refund`\n\nCaused by:\n    0: invalid tool arguments\n    1: missing field `amount_cents` at line 1 column 48\n\nStack backtrace:\n   0: anyhow::error::<impl anyhow::Error>::msg\n   1: refund_tool::parse_args\n             at ./src/lib.rs:88:18\n   2: refund_tool::execute\n             at ./src/lib.rs:41:20",
+      "raw_bytes": 335,
+      "raw_lines": 12,
+      "hint_bytes": 101,
+      "reduction_pct": 69.85074626865672,
+      "hint": "Hint: Required field 'amount_cents' is missing from the arguments. Provide 'amount_cents' explicitly.",
+      "rule": "missing_field",
+      "category": "missing_argument",
+      "key": "amount_cents",
+      "parse": {
+        "samples": 20000,
+        "mean_us": 2.3533996000001216,
+        "min_us": 2.274,
+        "p50_us": 2.334,
+        "p90_us": 2.3640000000000003,
+        "p95_us": 2.374,
+        "p99_us": 2.444,
+        "max_us": 34.635000000000005
+      }
+    },
+    {
+      "id": "java-unknown-domain",
+      "label": "Unrecognized domain error (fallback)",
+      "runtime": "Java",
+      "raw": "com.acme.billing.BillingException: failed to finalize invoice INV-2291\n\tat com.acme.billing.InvoiceService.finalizeInvoice(InvoiceService.java:210)\n\tat com.acme.agent.tools.FinalizeInvoiceTool.execute(FinalizeInvoiceTool.java:47)\n\tat com.acme.agent.runtime.ToolDispatcher.dispatch(ToolDispatcher.java:112)\nCaused by: com.acme.billing.TaxJurisdictionException: no tax rule configured for region 'EU-HR' and product class 'digital-services'\n\tat com.acme.billing.tax.TaxEngine.resolve(TaxEngine.java:88)\n\tat com.acme.billing.InvoiceService.applyTaxes(InvoiceService.java:301)\n\t... 3 more",
+      "raw_bytes": 584,
+      "raw_lines": 8,
+      "hint_bytes": 179,
+      "reduction_pct": 69.34931506849315,
+      "hint": "Hint: Step failed with \"TaxJurisdictionException: no tax rule configured for region 'EU-HR' and product class 'digital-services'\". Change the arguments so this error cannot recur.",
+      "rule": null,
+      "category": "unknown",
+      "key": null,
+      "parse": {
+        "samples": 20000,
+        "mean_us": 3.6054907999998482,
+        "min_us": 3.4970000000000003,
+        "p50_us": 3.577,
+        "p90_us": 3.6069999999999998,
+        "p95_us": 3.6270000000000002,
+        "p99_us": 3.737,
+        "max_us": 37.821000000000005
+      }
+    }
+  ],
+  "throughput": [
+    {
+      "concurrency": 1,
+      "transactions": 512,
+      "steps_per_transaction": 20,
+      "elapsed_ms": 457.57559599999996,
+      "transactions_per_sec": 1118.9407924630666,
+      "steps_per_sec": 22378.815849261333
+    },
+    {
+      "concurrency": 4,
+      "transactions": 512,
+      "steps_per_transaction": 20,
+      "elapsed_ms": 232.740689,
+      "transactions_per_sec": 2199.8731816077075,
+      "steps_per_sec": 43997.463632154155
+    },
+    {
+      "concurrency": 16,
+      "transactions": 512,
+      "steps_per_transaction": 20,
+      "elapsed_ms": 247.32365000000001,
+      "transactions_per_sec": 2070.161911325504,
+      "steps_per_sec": 41403.23822651008
+    },
+    {
+      "concurrency": 64,
+      "transactions": 512,
+      "steps_per_transaction": 20,
+      "elapsed_ms": 240.85764,
+      "transactions_per_sec": 2125.7370121205204,
+      "steps_per_sec": 42514.74024241041
+    }
+  ]
+}

@@ -3,6 +3,22 @@
 version = 4
 
 [[package]]
+name = "agenttx-bench"
+version = "0.1.0"
+dependencies = [
+ "agenttx-protocol",
+ "anyhow",
+ "async-trait",
+ "clap",
+ "rocksdb",
+ "serde",
+ "serde_json",
+ "tempfile",
+ "tokio",
+ "tonic",
+]
+
+[[package]]
 name = "agenttx-protocol"
 version = "0.1.0"
 dependencies = [

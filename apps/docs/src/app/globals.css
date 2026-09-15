@@ -1,0 +1,166 @@
+@import "tailwindcss";
+@import "@agenttx/ui/styles.css";
+
+@source "../../../../packages/ui/src";
+
+@layer base {
+  html {
+    scroll-padding-top: 5.5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-bg font-sans text-fg antialiased;
+    font-feature-settings: "cv11", "ss01";
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--accent) 28%, transparent);
+  }
+
+  :focus-visible {
+    outline: 2px solid color-mix(in oklab, var(--accent) 75%, transparent);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@utility bg-grid {
+  background-image:
+    linear-gradient(to right, var(--border) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--border) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 75% 60% at 50% 0%, #000 25%, transparent 75%);
+}
+
+@utility hero-glow {
+  background:
+    radial-gradient(640px 320px at 50% -8%, var(--glow), transparent 70%),
+    radial-gradient(420px 260px at 85% 20%, color-mix(in oklab, var(--glow) 60%, transparent), transparent 70%);
+}
+
+@utility text-gradient {
+  background-image: linear-gradient(110deg, var(--fg) 15%, var(--accent) 95%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@layer components {
+  /* ---------- Code blocks (Shiki dual theme via CSS variables) ---------- */
+  .shiki,
+  .shiki span {
+    color: var(--shiki-light);
+  }
+  .dark .shiki,
+  .dark .shiki span {
+    color: var(--shiki-dark);
+  }
+
+  .code-block {
+    @apply relative my-6 overflow-hidden rounded-xl border border-border bg-surface-2;
+  }
+  .code-block-header {
+    @apply flex h-10 items-center justify-between border-b border-border pr-1.5 pl-4 font-mono text-[11.5px] text-fg-subtle;
+  }
+  .code-block pre {
+    @apply overflow-x-auto px-4 py-3.5 font-mono text-[13px] leading-[1.7];
+    background: transparent !important;
+    tab-size: 2;
+  }
+
+  /* ---------- Documentation prose ---------- */
+  .docs-prose {
+    @apply text-[15.5px] leading-[1.8] text-fg-muted;
+  }
+  .docs-prose > * + * {
+    margin-top: 1.15em;
+  }
+  .docs-prose h2 {
+    @apply mt-14 scroll-mt-24 text-[1.55rem] leading-snug font-semibold tracking-[-0.02em] text-fg;
+  }
+  .docs-prose h3 {
+    @apply mt-10 scroll-mt-24 text-[1.15rem] font-semibold tracking-[-0.01em] text-fg;
+  }
+  .docs-prose h4 {
+    @apply mt-8 scroll-mt-24 font-semibold text-fg;
+  }
+  .docs-prose :is(h2, h3, h4) + * {
+    margin-top: 0.7em;
+  }
+  .docs-prose .heading-link {
+    @apply relative text-inherit no-underline;
+  }
+  .docs-prose .heading-link::before {
+    content: "#";
+    @apply absolute -left-[0.9em] text-fg-subtle opacity-0 transition-opacity;
+  }
+  .docs-prose .heading-link:hover::before {
+    @apply opacity-100;
+  }
+  .docs-prose strong {
+    @apply font-semibold text-fg;
+  }
+  .docs-prose a:not(.heading-link) {
+    @apply font-medium text-fg underline decoration-accent/45 decoration-[1.5px] underline-offset-[3px] transition-colors hover:decoration-accent;
+  }
+  .docs-prose :not(pre) > code {
+    @apply rounded-md border border-border bg-surface-2 px-[0.4em] py-[0.12em] font-mono text-[0.85em] text-fg;
+  }
+  .docs-prose ul {
+    @apply list-disc pl-5;
+  }
+  .docs-prose ol {
+    @apply list-decimal pl-5;
+  }
+  .docs-prose li + li {
+    margin-top: 0.4em;
+  }
+  .docs-prose li::marker {
+    @apply text-fg-subtle;
+  }
+  .docs-prose li > :is(ul, ol) {
+    margin-top: 0.4em;
+  }
+  .docs-prose li:has(> input[type="checkbox"]) {
+    @apply list-none;
+  }
+  .docs-prose input[type="checkbox"] {
+    @apply mr-2 accent-accent;
+  }
+  .docs-prose blockquote {
+    @apply border-l-2 border-border-strong pl-4;
+  }
+  .docs-prose hr {
+    @apply my-12 border-border;
+  }
+  .docs-prose .table-wrap {
+    @apply overflow-x-auto rounded-xl border border-border;
+  }
+  .docs-prose table {
+    @apply w-full border-collapse text-[14px] leading-normal;
+  }
+  .docs-prose th {
+    @apply border-b border-border bg-surface-2 px-3.5 py-2.5 text-left text-[13px] font-medium whitespace-nowrap text-fg;
+  }
+  .docs-prose td {
+    @apply border-b border-border px-3.5 py-2.5 align-top;
+  }
+  .docs-prose tr:last-child td {
+    @apply border-b-0;
+  }
+  .docs-prose img {
+    @apply rounded-xl border border-border;
+  }
+}

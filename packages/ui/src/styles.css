@@ -1,0 +1,125 @@
+/*
+ * AgentTx design tokens for Tailwind CSS v4.
+ *
+ * Import after `tailwindcss`:  @import "@agenttx/ui/styles.css";
+ * Theme switching: `.dark` on <html> (next-themes, attribute="class").
+ *
+ * Chart colors are validated (CVD separation, lightness band, contrast) against
+ * the chart surfaces below in both modes: after = blue, series-2 = orange,
+ * before = de-emphasis gray.
+ */
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-fg: var(--fg);
+  --color-fg-muted: var(--fg-muted);
+  --color-fg-subtle: var(--fg-subtle);
+
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-success: var(--success);
+  --color-success-ink: var(--success-ink);
+  --color-warning: var(--warning);
+  --color-warning-ink: var(--warning-ink);
+  --color-danger: var(--danger);
+  --color-danger-ink: var(--danger-ink);
+
+  --animate-fade-up: fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+:root {
+  color-scheme: light;
+  --bg: #fafaf9;
+  --surface: #ffffff;
+  --surface-2: #f4f4f2;
+  --surface-3: #ebebe8;
+  --border: rgb(11 11 11 / 0.09);
+  --border-strong: rgb(11 11 11 / 0.18);
+  --fg: #0b0b0b;
+  --fg-muted: #52514e;
+  --fg-subtle: #75746f;
+  --shadow-edge: rgb(11 11 11 / 0.03);
+
+  --accent: #2a78d6;
+  --accent-ink: #1c5cab;
+  --success: #0ca30c;
+  --success-ink: #006300;
+  --warning: #fab219;
+  --warning-ink: #8a5a00;
+  --danger: #d03b3b;
+  --danger-ink: #a82a2a;
+
+  --chart-surface: #ffffff;
+  --chart-after: #2a78d6;
+  --chart-series-2: #eb6834;
+  --chart-before: #8a8984;
+  --chart-connector: #d9d8d2;
+  --chart-grid: #ecebe6;
+  --chart-axis: #c3c2b7;
+  --chart-threshold: #898781;
+
+  --glow: rgb(42 120 214 / 0.14);
+}
+
+.dark {
+  color-scheme: dark;
+  --bg: #070809;
+  --surface: #0e0f12;
+  --surface-2: #15171b;
+  --surface-3: #1d2025;
+  --border: rgb(255 255 255 / 0.08);
+  --border-strong: rgb(255 255 255 / 0.16);
+  --fg: #f5f5f4;
+  --fg-muted: #b4b3ad;
+  --fg-subtle: #8c8b85;
+  --shadow-edge: rgb(255 255 255 / 0.03);
+
+  --accent: #3987e5;
+  --accent-ink: #86b6ef;
+  --success: #0ca30c;
+  --success-ink: #4fd14f;
+  --warning: #fab219;
+  --warning-ink: #fac75a;
+  --danger: #d03b3b;
+  --danger-ink: #f08080;
+
+  --chart-surface: #0e0f12;
+  --chart-after: #3987e5;
+  --chart-series-2: #d95926;
+  --chart-before: #77756f;
+  --chart-connector: #34353a;
+  --chart-grid: #1c1d21;
+  --chart-axis: #383835;
+  --chart-threshold: #898781;
+
+  --glow: rgb(57 135 229 / 0.2);
+}
+
+@media (forced-colors: active) {
+  :root {
+    --chart-after: CanvasText;
+    --chart-before: GrayText;
+    --chart-series-2: Highlight;
+  }
+}

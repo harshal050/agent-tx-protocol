@@ -1,0 +1,43 @@
+{
+  "name": "@agenttx/content",
+  "version": "0.1.0",
+  "private": true,
+  "license": "Apache-2.0",
+  "description": "Loads documentation, navigation and repository data from GitHub (with a local fallback) and renders Markdown.",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./search-rank": "./src/search-rank.ts"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@shikijs/rehype": "^4.4.3",
+    "github-slugger": "^2.0.0",
+    "gray-matter": "^4.0.3",
+    "hast-util-to-string": "^3.0.1",
+    "mdast-util-to-string": "^4.0.0",
+    "rehype-autolink-headings": "^7.1.0",
+    "rehype-slug": "^6.0.0",
+    "remark-gfm": "^4.0.1",
+    "remark-parse": "^11.0.0",
+    "remark-rehype": "^11.1.2",
+    "shiki": "^4.4.3",
+    "unified": "^11.0.5",
+    "unist-util-visit": "^5.1.0",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@agenttx/eslint-config": "workspace:*",
+    "@agenttx/typescript-config": "workspace:*",
+    "@types/hast": "^3.0.5",
+    "@types/mdast": "^4.0.4",
+    "@types/node": "^24.13.4",
+    "eslint": "^9.39.5",
+    "typescript": "5.9.3",
+    "vitest": "^5.0.1"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "name": "agenttx",
+  "private": true,
+  "description": "AgentTx monorepo: Rust transactional proxy for LLM agents, benchmarks and documentation site.",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/harshal050/agent-tx-protocol.git"
+  },
+  "packageManager": "pnpm@11.9.0",
+  "engines": {
+    "node": ">=22.12"
+  },
+  "scripts": {
+    "dev": "turbo run dev --filter=@agenttx/docs",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "bench": "turbo run bench --filter=@agenttx/bench",
+    "bench:quick": "turbo run bench:quick --filter=@agenttx/bench",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "devDependencies": {
+    "prettier": "^3.9.6",
+    "prettier-plugin-tailwindcss": "^0.8.1",
+    "turbo": "^2.10.13",
+    "typescript": "5.9.3"
+  }
+}

@@ -1,0 +1,9 @@
+target
+node_modules
+.next
+.turbo
+coverage
+pnpm-lock.yaml
+Cargo.lock
+benchmarks/results
+crates/**/proto

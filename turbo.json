@@ -1,0 +1,67 @@
+{
+  "$schema": "https://turborepo.com/schema.json",
+  "ui": "stream",
+  "globalDependencies": [
+    "tsconfig.json"
+  ],
+  "tasks": {
+    "build": {
+      "dependsOn": [
+        "^build"
+      ],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        ".env*",
+        "$TURBO_ROOT$/docs/**",
+        "$TURBO_ROOT$/benchmarks/results/**"
+      ],
+      "outputs": [
+        ".next/**",
+        "!.next/cache/**",
+        "dist/**"
+      ],
+      "env": [
+        "AGENTTX_GITHUB_REPO",
+        "AGENTTX_GITHUB_BRANCH",
+        "AGENTTX_CONTENT_SOURCE",
+        "NEXT_PUBLIC_SITE_URL"
+      ],
+      "passThroughEnv": [
+        "GITHUB_TOKEN",
+        "GITHUB_WEBHOOK_SECRET"
+      ]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true,
+      "passThroughEnv": [
+        "GITHUB_TOKEN",
+        "GITHUB_WEBHOOK_SECRET"
+      ]
+    },
+    "lint": {},
+    "typecheck": {
+      "dependsOn": [
+        "^typecheck"
+      ]
+    },
+    "test": {
+      "outputs": []
+    },
+    "@agenttx/protocol#test": {
+      "cache": false
+    },
+    "@agenttx/protocol#lint": {
+      "cache": false
+    },
+    "@agenttx/bench#lint": {
+      "cache": false
+    },
+    "bench": {
+      "cache": false
+    },
+    "bench:quick": {
+      "cache": false
+    }
+  }
+}

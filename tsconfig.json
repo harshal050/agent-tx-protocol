@@ -1,0 +1,4 @@
+{
+  "extends": "@agenttx/typescript-config/base.json",
+  "files": []
+}

@@ -1,0 +1,11 @@
+{
+  "name": "@agenttx/bench",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Turborepo task wrapper for the agenttx-bench benchmark harness.",
+  "scripts": {
+    "bench": "cargo run --release -p agenttx-bench -- --out ../../benchmarks/results/latest.json",
+    "bench:quick": "cargo run --release -p agenttx-bench -- --quick --out ../../benchmarks/results/latest.json",
+    "lint": "cargo fmt -p agenttx-bench --check && cargo clippy -p agenttx-bench --all-targets -- -D warnings"
+  }
+}

@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Documentation
+    url: https://github.com/harshal050/agent-tx-protocol/tree/main/docs
+    about: Guides, API reference and benchmark methodology.
+  - name: Report a security vulnerability
+    url: https://github.com/harshal050/agent-tx-protocol/security/advisories/new
+    about: Please report security issues privately.

@@ -1,3 +1,25 @@
+# Rust
 /target
+
+# Node / Turborepo / Next.js
+node_modules/
+.turbo/
+.next/
+out/
+coverage/
+*.tsbuildinfo
+next-env.d.ts
+
+# Environment
+.env
+.env*.local
+
+# Runtime data
 /data
 *.outbox.jsonl
+
+# OS / editors
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json

@@ -1,0 +1,51 @@
+name: Bug report
+description: Something in AgentTx behaves incorrectly.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for taking the time to report a bug. Please search existing issues first. For security problems, use the private vulnerability report instead.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Protocol server / gRPC API
+        - Rollback engine
+        - Storage & snapshots
+        - Saga compensation & side effects
+        - Error cleaner (Clean Hints)
+        - Built-in tools
+        - Benchmarks
+        - Documentation site
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What did you see, and what did you expect instead?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: Minimal requests, tool calls or code. grpcurl commands are great.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version or commit
+      placeholder: e.g. 0.1.0 or 5aa5567
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: OS, Rust version, how AgentTx is deployed.
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant logs
+      render: text

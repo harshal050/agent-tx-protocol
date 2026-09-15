@@ -1,0 +1,25 @@
+[package]
+name = "agenttx-bench"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Reproducible benchmark harness: agent tool loops with and without AgentTx."
+publish = false
+
+[[bin]]
+name = "agenttx-bench"
+path = "src/main.rs"
+
+[dependencies]
+agenttx-protocol = { path = "../agenttx-protocol" }
+anyhow = "1"
+async-trait = "0.1"
+clap = { version = "4.5", features = ["derive"] }
+rocksdb = { version = "0.25", default-features = false, features = ["lz4", "zstd", "bindgen-runtime"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tempfile = "3"
+tokio = { version = "1.44", features = ["rt-multi-thread", "macros", "net", "time", "sync"] }
+tonic = "0.14"

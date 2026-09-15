@@ -1,0 +1,11 @@
+{
+  "name": "@agenttx/protocol",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Turborepo task wrapper for the agenttx-protocol Rust crate.",
+  "scripts": {
+    "build": "cargo build --release -p agenttx-protocol",
+    "test": "cargo test -p agenttx-protocol",
+    "lint": "cargo fmt -p agenttx-protocol --check && cargo clippy -p agenttx-protocol --all-targets -- -D warnings"
+  }
+}
