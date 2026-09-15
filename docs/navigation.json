@@ -4,45 +4,166 @@
     {
       "title": "Getting started",
       "items": [
-        { "slug": "introduction", "title": "Introduction", "file": "introduction.md" },
-        { "slug": "quickstart", "title": "Quickstart", "file": "quickstart.md" },
-        { "slug": "installation", "title": "Installation", "file": "installation.md" },
-        { "slug": "architecture", "title": "Architecture", "file": "architecture.md" }
+        {
+          "slug": "introduction",
+          "title": "Introduction",
+          "file": "introduction.md"
+        },
+        {
+          "slug": "quickstart",
+          "title": "Quickstart",
+          "file": "quickstart.md"
+        },
+        {
+          "slug": "installation",
+          "title": "Installation",
+          "file": "installation.md"
+        },
+        {
+          "slug": "architecture",
+          "title": "Architecture",
+          "file": "architecture.md"
+        }
+      ]
+    },
+    {
+      "title": "Connect AI agents",
+      "items": [
+        {
+          "slug": "connect-ai-agents",
+          "title": "Overview & install",
+          "file": "connect/overview.md"
+        },
+        {
+          "slug": "connect-claude-code",
+          "title": "Claude Code",
+          "file": "connect/claude-code.md"
+        },
+        {
+          "slug": "connect-codex",
+          "title": "Codex",
+          "file": "connect/codex.md"
+        },
+        {
+          "slug": "connect-claude-desktop",
+          "title": "Claude Desktop",
+          "file": "connect/claude-desktop.md"
+        },
+        {
+          "slug": "connect-cursor",
+          "title": "Cursor",
+          "file": "connect/cursor.md"
+        },
+        {
+          "slug": "connect-more-apps",
+          "title": "VS Code, Gemini & Windsurf",
+          "file": "connect/more-apps.md"
+        },
+        {
+          "slug": "connect-first-task",
+          "title": "Your first safe task",
+          "file": "connect/first-task.md"
+        },
+        {
+          "slug": "connect-troubleshooting",
+          "title": "Troubleshooting",
+          "file": "connect/troubleshooting.md"
+        }
       ]
     },
     {
       "title": "Core concepts",
       "items": [
-        { "slug": "transactions", "title": "Transactions & steps", "file": "transactions.md" },
-        { "slug": "rollback-strategies", "title": "Rollback strategies", "file": "rollback-strategies.md" },
-        { "slug": "dependency-graph", "title": "Dependency graph", "file": "dependency-graph.md" },
-        { "slug": "snapshots", "title": "Snapshots & storage", "file": "snapshots.md" },
-        { "slug": "saga-compensation", "title": "Saga compensation", "file": "saga-compensation.md" },
-        { "slug": "clean-hints", "title": "Clean Hints", "file": "clean-hints.md" }
+        {
+          "slug": "transactions",
+          "title": "Transactions & steps",
+          "file": "transactions.md"
+        },
+        {
+          "slug": "rollback-strategies",
+          "title": "Rollback strategies",
+          "file": "rollback-strategies.md"
+        },
+        {
+          "slug": "dependency-graph",
+          "title": "Dependency graph",
+          "file": "dependency-graph.md"
+        },
+        {
+          "slug": "snapshots",
+          "title": "Snapshots & storage",
+          "file": "snapshots.md"
+        },
+        {
+          "slug": "saga-compensation",
+          "title": "Saga compensation",
+          "file": "saga-compensation.md"
+        },
+        {
+          "slug": "clean-hints",
+          "title": "Clean Hints",
+          "file": "clean-hints.md"
+        }
       ]
     },
     {
       "title": "Guides",
       "items": [
-        { "slug": "client-integration", "title": "Client integration", "file": "client-integration.md" },
-        { "slug": "custom-tools", "title": "Custom tools", "file": "custom-tools.md" },
-        { "slug": "operations", "title": "Deploy & operate", "file": "operations.md" }
+        {
+          "slug": "client-integration",
+          "title": "Client integration",
+          "file": "client-integration.md"
+        },
+        {
+          "slug": "custom-tools",
+          "title": "Custom tools",
+          "file": "custom-tools.md"
+        },
+        {
+          "slug": "operations",
+          "title": "Deploy & operate",
+          "file": "operations.md"
+        }
       ]
     },
     {
       "title": "Reference",
       "items": [
-        { "slug": "grpc-api", "title": "gRPC API", "file": "grpc-api.md" },
-        { "slug": "configuration", "title": "Configuration", "file": "configuration.md" },
-        { "slug": "built-in-tools", "title": "Built-in tools", "file": "built-in-tools.md" },
-        { "slug": "guarantees", "title": "Guarantees & limits", "file": "guarantees.md" }
+        {
+          "slug": "grpc-api",
+          "title": "gRPC API",
+          "file": "grpc-api.md"
+        },
+        {
+          "slug": "configuration",
+          "title": "Configuration",
+          "file": "configuration.md"
+        },
+        {
+          "slug": "built-in-tools",
+          "title": "Built-in tools",
+          "file": "built-in-tools.md"
+        },
+        {
+          "slug": "guarantees",
+          "title": "Guarantees & limits",
+          "file": "guarantees.md"
+        }
       ]
     },
     {
       "title": "Project",
       "items": [
-        { "slug": "benchmark-methodology", "title": "Benchmark methodology", "file": "benchmark-methodology.md" },
-        { "slug": "contributing", "title": "Contributing", "file": "contributing.md" }
+        {
+          "slug": "benchmark-methodology",
+          "title": "Benchmark methodology",
+          "file": "benchmark-methodology.md"
+        },
+        {
+          "slug": "contributing",
+          "title": "Contributing",
+          "file": "contributing.md"
+        }
       ]
     }
   ]

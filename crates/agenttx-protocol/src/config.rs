@@ -123,6 +123,58 @@ impl Config {
     }
 }
 
+/// Options for `agenttx mcp` (the MCP server started by AI apps).
+#[derive(Debug, Clone, clap::Args)]
+pub struct McpArgs {
+    /// Folder for AgentTx data. Defaults to ~/.agenttx
+    #[arg(long, env = "AGENTTX_HOME")]
+    pub home: Option<PathBuf>,
+
+    /// Folder the fs.* tools may read and write. Defaults to <home>/workspace
+    #[arg(long, env = "AGENTTX_WORKSPACE")]
+    pub workspace: Option<PathBuf>,
+
+    /// Per-step tool timeout in milliseconds.
+    #[arg(long, default_value_t = 30_000)]
+    pub step_timeout_ms: u64,
+}
+
+/// Resolved folders for `agenttx mcp`.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct McpPaths {
+    pub home: PathBuf,
+    pub data_dir: PathBuf,
+    pub workspace: PathBuf,
+    pub outbox: PathBuf,
+}
+
+impl McpArgs {
+    /// Resolves folders. AI apps often start servers from an unknown working
+    /// directory, so defaults live under the user's home folder, not `.`.
+    pub fn resolve(&self) -> Result<McpPaths> {
+        let home = match &self.home {
+            Some(home) => home.clone(),
+            None => std::env::var_os("HOME")
+                .or_else(|| std::env::var_os("USERPROFILE"))
+                .map(|base| PathBuf::from(base).join(".agenttx"))
+                .ok_or_else(|| {
+                    AgentTxError::Config(
+                        "could not find your home folder; pass --home <folder>".into(),
+                    )
+                })?,
+        };
+        Ok(McpPaths {
+            data_dir: home.join("rocksdb"),
+            workspace: self
+                .workspace
+                .clone()
+                .unwrap_or_else(|| home.join("workspace")),
+            outbox: home.join("outbox.jsonl"),
+            home,
+        })
+    }
+}
+
 /// Settings consumed by [`crate::engine::Engine`].
 #[derive(Debug, Clone)]
 pub struct EngineConfig {

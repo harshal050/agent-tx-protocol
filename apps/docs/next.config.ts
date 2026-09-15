@@ -25,6 +25,13 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [{ protocol: "https", hostname: "avatars.githubusercontent.com" }],
   },
+  async redirects() {
+    const raw = "https://raw.githubusercontent.com/harshal050/agent-tx-protocol/main/scripts";
+    return [
+      { source: "/install.sh", destination: `${raw}/install.sh`, permanent: false },
+      { source: "/install.ps1", destination: `${raw}/install.ps1`, permanent: false },
+    ];
+  },
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
   },

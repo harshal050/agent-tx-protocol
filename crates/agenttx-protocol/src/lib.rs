@@ -37,10 +37,12 @@
 //! ```
 
 pub mod config;
+pub mod connect;
 pub mod engine;
 pub mod errors;
 pub mod grpc;
 pub mod ledger;
+pub mod mcp;
 pub mod parser;
 pub mod storage;
 
