@@ -1,7 +1,7 @@
 #!/bin/sh
 # AgentTx installer for macOS and Linux.
 #
-#   curl -fsSL https://agent-tx-protocol.vercel.app/install.sh | sh
+#   curl -fsSL https://agenttx.site/install.sh | sh
 #
 # Downloads the latest release from GitHub, checks its SHA-256 checksum and
 # installs `agenttx` into ~/.agenttx/bin (override with AGENTTX_INSTALL_DIR).
@@ -10,7 +10,7 @@
 set -eu
 
 REPO="harshal050/agent-tx-protocol"
-GUIDE="https://agent-tx-protocol.vercel.app/docs/connect-ai-agents"
+GUIDE="https://agenttx.site/docs/connect-ai-agents"
 INSTALL_DIR="${AGENTTX_INSTALL_DIR:-$HOME/.agenttx/bin}"
 VERSION="${AGENTTX_VERSION:-latest}"
 

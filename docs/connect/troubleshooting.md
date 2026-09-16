@@ -22,6 +22,13 @@ Desktop apps (Claude Desktop, Cursor, Windsurf, VS Code) often can't find progra
 
 Then restart the app completely.
 
+## Codex says "MCP startup failed: No such file or directory (os error 2)"
+
+Codex is set to start `agenttx` but can't find the program. This happens when AgentTx was added by name only and Codex was started from a window that doesn't know about `~/.agenttx/bin`.
+
+- **In VS Code:** open the AgentTx panel and click **Repair** on the Codex card ([picture](./vscode-extension.md#if-a-card-says-needs-repair)). Then reload the window.
+- **In a terminal:** run `codex mcp remove agenttx`, then run `agenttx connect codex` and use the command it prints. That command uses the full path. Then restart Codex.
+
 ## Gemini CLI shows agenttx as "Disabled"
 
 Gemini turns off tools in folders you haven't trusted. Run `gemini` in your project folder and choose **Trust folder** when it asks "Do you trust the files in this folder?". Then run `gemini mcp list` again. It should say **Connected**.

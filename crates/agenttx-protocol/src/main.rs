@@ -20,7 +20,7 @@ use agenttx::ledger::{OutboxDispatcher, UndoRegistry};
 use agenttx::mcp::McpServer;
 use agenttx::storage::{RocksStore, StoreOptions};
 
-const GUIDE_URL: &str = "https://agent-tx-protocol.vercel.app/docs/connect-ai-agents";
+const GUIDE_URL: &str = "https://agenttx.site/docs/connect-ai-agents";
 
 #[derive(Debug, Parser)]
 #[command(

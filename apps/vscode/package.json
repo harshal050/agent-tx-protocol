@@ -1,0 +1,180 @@
+{
+  "name": "agenttx-vscode",
+  "displayName": "AgentTx",
+  "description": "Connect AgentTx to Codex, Claude Code and GitHub Copilot in one click, so your AI agent's actions can be undone safely.",
+  "version": "0.1.0",
+  "publisher": "harshal050",
+  "private": true,
+  "license": "Apache-2.0",
+  "icon": "media/icon.png",
+  "homepage": "https://agenttx.site/docs/connect-vscode-extension",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/harshal050/agent-tx-protocol.git",
+    "directory": "apps/vscode"
+  },
+  "bugs": {
+    "url": "https://github.com/harshal050/agent-tx-protocol/issues"
+  },
+  "galleryBanner": {
+    "color": "#0b0b0b",
+    "theme": "dark"
+  },
+  "engines": {
+    "vscode": "^1.101.0"
+  },
+  "categories": [
+    "AI",
+    "Other"
+  ],
+  "keywords": [
+    "agenttx",
+    "mcp",
+    "codex",
+    "claude",
+    "copilot",
+    "agents",
+    "rollback"
+  ],
+  "main": "./dist/extension.js",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "agenttx",
+          "title": "AgentTx",
+          "icon": "media/activity.svg"
+        }
+      ]
+    },
+    "views": {
+      "agenttx": [
+        {
+          "type": "webview",
+          "id": "agenttx.setup",
+          "name": "Connect AI agents"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "agenttx.openSetup",
+        "title": "Open Setup",
+        "category": "AgentTx"
+      },
+      {
+        "command": "agenttx.install",
+        "title": "Install AgentTx",
+        "category": "AgentTx"
+      },
+      {
+        "command": "agenttx.connect",
+        "title": "Connect an AI Agent",
+        "category": "AgentTx"
+      },
+      {
+        "command": "agenttx.disconnect",
+        "title": "Disconnect an AI Agent",
+        "category": "AgentTx"
+      },
+      {
+        "command": "agenttx.test",
+        "title": "Test AgentTx",
+        "category": "AgentTx"
+      },
+      {
+        "command": "agenttx.refresh",
+        "title": "Refresh",
+        "category": "AgentTx",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "agenttx.openGuide",
+        "title": "Open the Guide",
+        "category": "AgentTx"
+      },
+      {
+        "command": "agenttx.openConfig",
+        "title": "Open Settings File",
+        "category": "AgentTx"
+      },
+      {
+        "command": "agenttx.openExtension",
+        "title": "Show Extension",
+        "category": "AgentTx"
+      },
+      {
+        "command": "agenttx.copyRequest",
+        "title": "Copy First Request",
+        "category": "AgentTx"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "agenttx.refresh",
+          "when": "view == agenttx.setup",
+          "group": "navigation"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "agenttx.openConfig",
+          "when": "false"
+        },
+        {
+          "command": "agenttx.openExtension",
+          "when": "false"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "AgentTx",
+      "properties": {
+        "agenttx.path": {
+          "type": "string",
+          "default": "",
+          "scope": "machine",
+          "markdownDescription": "Full path to the `agenttx` program. Leave empty to find it automatically (`~/.agenttx/bin`, then your `PATH`)."
+        },
+        "agenttx.githubCopilot.enabled": {
+          "type": "boolean",
+          "default": false,
+          "description": "Offer the AgentTx tools to GitHub Copilot Chat (agent mode) in this editor."
+        }
+      }
+    },
+    "mcpServerDefinitionProviders": [
+      {
+        "id": "agenttx",
+        "label": "AgentTx"
+      }
+    ]
+  },
+  "scripts": {
+    "build": "node esbuild.mjs --production",
+    "watch": "node esbuild.mjs --watch",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "package": "node esbuild.mjs --production && vsce package --no-dependencies --out agenttx-vscode.vsix"
+  },
+  "dependencies": {
+    "smol-toml": "^1.8.0"
+  },
+  "devDependencies": {
+    "@agenttx/eslint-config": "workspace:*",
+    "@agenttx/typescript-config": "workspace:*",
+    "@types/node": "^24.13.4",
+    "@types/vscode": "1.101.0",
+    "@vscode/vsce": "^4.0.0",
+    "esbuild": "^0.28.2",
+    "eslint": "^9.39.5",
+    "globals": "^17.12.0",
+    "typescript": "5.9.3",
+    "vitest": "^5.0.1"
+  }
+}

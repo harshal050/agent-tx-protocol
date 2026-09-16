@@ -5,9 +5,12 @@ description: Add AgentTx to Claude Code with one command, check the connection a
 
 [Claude Code](https://www.anthropic.com/claude-code) is Anthropic's AI coding assistant for the terminal. Connecting AgentTx takes one command.
 
+> [!TIP]
+> Use Claude Code **inside VS Code**? The [AgentTx VS Code extension](./vscode-extension.md) connects it with one click, with no terminal needed. The extension and the CLI share the same MCP settings, so it connects both.
+
 ## Before you start
 
-- [ ] AgentTx is installed and `agenttx --version` works ([Step 1–2 of the overview](./overview.md#step-1-install-agenttx)).
+- [ ] AgentTx is installed and `agenttx --version` works ([Step 1–2 of the overview](./overview.md#step-1--install-agenttx)).
 - [ ] Claude Code is installed and you have signed in at least once (run `claude` in a terminal).
 
 ## Step 1 — Add AgentTx

@@ -1,0 +1,9 @@
+src/**
+node_modules/**
+.turbo/**
+**/*.map
+esbuild.mjs
+eslint.config.mjs
+tsconfig.json
+vitest.config.mts
+*.vsix

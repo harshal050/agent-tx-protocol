@@ -58,6 +58,9 @@ jobs:
       - name: Lint, typecheck and test
         run: pnpm turbo run lint typecheck test --filter=./apps/* --filter=./packages/*
 
+      - name: Package VS Code extension
+        run: pnpm --filter agenttx-vscode run package
+
       - name: Build documentation site
         run: pnpm turbo run build --filter=@agenttx/docs
         env:

@@ -8,8 +8,8 @@ edition = "2024"
 rust-version = "1.88"
 license = "Apache-2.0"
 repository = "https://github.com/harshal050/agent-tx-protocol"
-homepage = "https://agent-tx-protocol.vercel.app"
-documentation = "https://agent-tx-protocol.vercel.app/docs"
+homepage = "https://agenttx.site"
+documentation = "https://agenttx.site/docs"
 
 [profile.release]
 lto = "thin"

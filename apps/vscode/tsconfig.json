@@ -1,0 +1,5 @@
+{
+  "extends": "@agenttx/typescript-config/base.json",
+  "compilerOptions": { "types": ["node", "vscode"] },
+  "include": ["src"]
+}

@@ -23,3 +23,6 @@ next-env.d.ts
 .idea/
 .vscode/*
 !.vscode/extensions.json
+
+# VS Code extension packages
+*.vsix

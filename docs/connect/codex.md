@@ -5,9 +5,12 @@ description: Add AgentTx to the OpenAI Codex CLI with one command or a few lines
 
 [Codex](https://github.com/openai/codex) is OpenAI's coding agent for the terminal. You can connect AgentTx with one command, or by adding three lines to a settings file.
 
+> [!TIP]
+> Use Codex **inside VS Code**? The [AgentTx VS Code extension](./vscode-extension.md) sets everything up with one click, with no terminal needed. The Codex extension and the Codex CLI share the same settings, so it connects both.
+
 ## Before you start
 
-- [ ] AgentTx is installed and `agenttx --version` works ([overview](./overview.md#step-1-install-agenttx)).
+- [ ] AgentTx is installed and `agenttx --version` works ([overview](./overview.md#step-1--install-agenttx)).
 - [ ] Codex is installed and you have signed in (run `codex` once).
 
 ## Step 1 — Add AgentTx
@@ -29,6 +32,9 @@ args = ["mcp"]
 ```
 
 Save the file. Both options do exactly the same thing.
+
+> [!WARNING]
+> If Codex later shows **`MCP startup failed: No such file or directory (os error 2)`**, it can't find the program by the name `agenttx`. Use its full location instead: run `agenttx connect codex` and use the command it prints. See [Troubleshooting](./troubleshooting.md#codex-says-mcp-startup-failed-no-such-file-or-directory-os-error-2).
 
 ## Step 2 — Check the connection
 

@@ -35,6 +35,11 @@
           "file": "connect/overview.md"
         },
         {
+          "slug": "connect-vscode-extension",
+          "title": "VS Code extension (easiest)",
+          "file": "connect/vscode-extension.md"
+        },
+        {
           "slug": "connect-claude-code",
           "title": "Claude Code",
           "file": "connect/claude-code.md"

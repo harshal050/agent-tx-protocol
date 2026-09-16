@@ -1,6 +1,6 @@
 # AgentTx installer for Windows (PowerShell 5.1 or later).
 #
-#   irm https://agent-tx-protocol.vercel.app/install.ps1 | iex
+#   irm https://agenttx.site/install.ps1 | iex
 #
 # Downloads the latest release from GitHub, checks its SHA-256 checksum,
 # installs agenttx.exe into %USERPROFILE%\.agenttx\bin and adds it to your PATH.
@@ -8,7 +8,7 @@
 $ErrorActionPreference = "Stop"
 
 $Repo = "harshal050/agent-tx-protocol"
-$Guide = "https://agent-tx-protocol.vercel.app/docs/connect-ai-agents"
+$Guide = "https://agenttx.site/docs/connect-ai-agents"
 $InstallDir = if ($env:AGENTTX_INSTALL_DIR) { $env:AGENTTX_INSTALL_DIR } else { Join-Path $env:USERPROFILE ".agenttx\bin" }
 $Version = if ($env:AGENTTX_VERSION) { $env:AGENTTX_VERSION } else { "latest" }
 

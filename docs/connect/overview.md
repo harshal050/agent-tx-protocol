@@ -7,6 +7,9 @@ This guide connects AgentTx to the AI app you already use. You don't need to wri
 
 When you finish, your AI can run multi-step tasks through AgentTx. If a step goes wrong, AgentTx undoes the damage, tells the AI in one plain sentence what went wrong, and the AI continues from the right place.
 
+> [!TIP]
+> **Use VS Code?** If your agent is Codex, Claude Code or GitHub Copilot inside VS Code, the [AgentTx VS Code extension](./vscode-extension.md) does everything on this page with buttons. You can skip the rest of this page.
+
 ## How it works
 
 AI apps talk to extra tools through **MCP** (Model Context Protocol), a standard "plug" for AI tools. AgentTx has an MCP mode built in. Your AI app starts it in the background whenever it needs it, so you never have to run it yourself.
@@ -47,13 +50,13 @@ To run a command, copy it from this page (use the copy button on each box), past
 **macOS or Linux** — paste this into Terminal:
 
 ```bash
-curl -fsSL https://agent-tx-protocol.vercel.app/install.sh | sh
+curl -fsSL https://agenttx.site/install.sh | sh
 ```
 
 **Windows** — paste this into PowerShell:
 
 ```powershell
-irm https://agent-tx-protocol.vercel.app/install.ps1 | iex
+irm https://agenttx.site/install.ps1 | iex
 ```
 
 The installer downloads AgentTx, checks the file is intact, and puts it in a folder called `.agenttx` in your home folder. When it finishes, **open a new terminal window**, so the terminal can find the new program.

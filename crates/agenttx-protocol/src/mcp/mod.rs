@@ -116,7 +116,7 @@ fn initialize_result(params: &Value) -> Value {
             "name": "agenttx",
             "title": "AgentTx",
             "version": env!("CARGO_PKG_VERSION"),
-            "websiteUrl": "https://agent-tx-protocol.vercel.app"
+            "websiteUrl": "https://agenttx.site"
         },
         "instructions": INSTRUCTIONS
     })
