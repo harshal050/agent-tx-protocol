@@ -168,13 +168,13 @@
   "devDependencies": {
     "@agenttx/eslint-config": "workspace:*",
     "@agenttx/typescript-config": "workspace:*",
-    "@types/node": "^24.13.4",
-    "@types/vscode": "1.101.0",
+    "@types/node": "^26.6.2",
+    "@types/vscode": "1.138.0",
     "@vscode/vsce": "^4.0.0",
     "esbuild": "^0.28.2",
-    "eslint": "^9.39.5",
+    "eslint": "^10.11.0",
     "globals": "^17.12.0",
-    "typescript": "5.9.3",
+    "typescript": "7.0.2",
     "vitest": "^5.0.1"
   }
 }
