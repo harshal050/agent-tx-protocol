@@ -19,9 +19,9 @@
   "devDependencies": {
     "@agenttx/eslint-config": "workspace:*",
     "@agenttx/typescript-config": "workspace:*",
-    "@types/node": "^26.6.2",
+    "@types/node": "^26.6.3",
     "eslint": "^10.11.0",
     "typescript": "7.0.2",
-    "vitest": "^5.0.1"
+    "vitest": "^5.0.2"
   }
 }
