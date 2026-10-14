@@ -14,14 +14,14 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "zod": "^4.6.5"
+    "zod": "^4.6.6"
   },
   "devDependencies": {
     "@agenttx/eslint-config": "workspace:*",
     "@agenttx/typescript-config": "workspace:*",
-    "@types/node": "^26.6.2",
-    "eslint": "^10.11.0",
+    "@types/node": "^26.6.5",
+    "eslint": "^10.12.0",
     "typescript": "7.0.2",
-    "vitest": "^5.0.1"
+    "vitest": "^5.0.3"
   }
 }
