@@ -15,7 +15,7 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@shikijs/rehype": "^4.4.3",
+    "@shikijs/rehype": "^4.5.0",
     "github-slugger": "^2.0.0",
     "gray-matter": "^4.0.3",
     "hast-util-to-string": "^3.0.1",
@@ -25,19 +25,19 @@
     "remark-gfm": "^4.0.1",
     "remark-parse": "^11.0.0",
     "remark-rehype": "^11.1.2",
-    "shiki": "^4.4.3",
+    "shiki": "^4.5.0",
     "unified": "^11.0.5",
     "unist-util-visit": "^5.1.0",
-    "zod": "^4.6.5"
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "@agenttx/eslint-config": "workspace:*",
     "@agenttx/typescript-config": "workspace:*",
     "@types/hast": "^3.0.5",
     "@types/mdast": "^4.0.4",
-    "@types/node": "^26.6.2",
-    "eslint": "^10.11.0",
+    "@types/node": "^26.6.5",
+    "eslint": "^10.13.0",
     "typescript": "7.0.2",
-    "vitest": "^5.0.1"
+    "vitest": "^5.0.5"
   }
 }
